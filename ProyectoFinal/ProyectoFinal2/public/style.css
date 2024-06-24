@@ -1,0 +1,53 @@
+/* Mantenemos tu estilo existente y añadimos algunos nuevos */
+
+* {
+    transition: all 0.3s;
+  }
+  
+  body {
+    background: cadetblue;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: calibri;
+    font-size: 120%;
+  }
+  
+  .contenedor {
+    width: 98vw;
+    height: 97vh;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #players {
+    margin-bottom: 20px;
+  }
+  
+  #turnIndicator {
+    margin-bottom: 20px;
+  }
+  
+  #rollDice {
+    margin-bottom: 20px;
+  }
+  
+  .pregunta-container {
+    display: none;
+  }
+  
+  .btn {
+    background: white;
+    width: 60%;
+    max-width: 550px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    transform: scale(1.05);
+  }
+  
