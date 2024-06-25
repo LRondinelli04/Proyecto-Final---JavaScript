@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let turnoActual = 0;
   const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
   const coloresJugadores = ["red", "blue"]; // Colores de los jugadores
+  let nombre = "";
+
 
   const btnDado = document.getElementById("btn-dado");
   const btnAbandonar = document.getElementById("btn-abandonar");
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   socket.on("connect", () => {
-    const nombre = prompt("Ingrese su nombre:");
+    nombre = prompt("Ingrese su nombre:");
     const color =
       coloresJugadores.length < 2
         ? prompt("Ingrese el color de su ficha:")

@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juego de Preguntas y Respuestas</title>
+  <title>Preguntas y Respuestas</title>
   <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="index.js" defer></script>
 </head>
 <body>
   <div class="contenedor">
-    <div class="tablero" id="tablero"></div>
+    <div id="tablero" class="tablero">
+      <!-- Aquí va el tablero del juego -->
+    </div>
     <div class="controles">
-      <div class="mensaje" id="mensaje"></div>
       <button id="btn-dado">Tirar Dado</button>
       <button id="btn-abandonar">Abandonar</button>
-      <div class="pregunta" id="pregunta"></div>
-      <div class="respuestas" id="respuestas"></div>
+      <div id="mensaje" class="mensaje"></div>
+      <div id="pregunta" class="pregunta"></div>
+      <div id="respuestas" class="respuestas"></div>
     </div>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="index.js"></script>
 </body>
 </html>
