@@ -1,23 +1,72 @@
 [
-    {
-      "categoria": "Arte y literatura",
-      "pregunta": "¿Quién pintó la mona lisa?",
-      "respuesta": "Leonardo da Vinci",
-      "incorrecta1": "Picasso",
-      "incorrecta2": "Miguel Ángel",
-      "incorrecta3": "Monet",
-      "imagen": "https://i.ibb.co/9cjvmw1/mona-lisa.jpg",
-      "objectFit": "cover"
-    },
-    {
-      "categoria": "Arte y literatura",
-      "pregunta": "Pintor de  \"El jardín de las delicias\"",
-      "respuesta": "El Bosco",
-      "incorrecta1": "Velásquez",
-      "incorrecta2": "Picasso",
-      "incorrecta3": "Dalí",
-      "imagen": "https://i.ibb.co/SDjX7PM/jardin-de-las-delicias.jpg",
-      "objectFit": "cover"
-    }
-  ]
-  
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "¿Quién pintó la mona lisa?",
+    "respuesta": "Leonardo da Vinci",
+    "incorrecta1": "Picasso",
+    "incorrecta2": "Miguel Ángel",
+    "incorrecta3": "Monet",
+    "imagen": "https://i.ibb.co/9cjvmw1/mona-lisa.jpg",
+    "objectFit": "cover"
+  },
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "Pintor de  \"El jardín de las delicias\"",
+    "respuesta": "El Bosco",
+    "incorrecta1": "Velásquez",
+    "incorrecta2": "Picasso",
+    "incorrecta3": "Dalí",
+    "imagen": "https://i.ibb.co/SDjX7PM/jardin-de-las-delicias.jpg",
+    "objectFit": "cover"
+  },
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "¿Quién escribió \"Don Quijote de la Mancha\"?",
+    "respuesta": "Miguel de Cervantes",
+    "incorrecta1": "García Márquez",
+    "incorrecta2": "Lope de Vega",
+    "incorrecta3": "Borges",
+    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
+    "objectFit": "cover"
+  },
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "¿Quién escribió \"Cien años de soledad\"?",
+    "respuesta": "Gabriel García Márquez",
+    "incorrecta1": "Borges",
+    "incorrecta2": "Cortázar",
+    "incorrecta3": "Vargas Llosa",
+    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
+    "objectFit": "cover"
+  },
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "¿Quién escribió \"El Aleph\"?",
+    "respuesta": "Jorge Luis Borges",
+    "incorrecta1": "Cortázar",
+    "incorrecta2": "García Márquez",
+    "incorrecta3": "Vargas Llosa",
+    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
+    "objectFit": "cover"
+  },
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "¿Quién escribió \"Rayuela\"?",
+    "respuesta": "Julio Cortázar",
+    "incorrecta1": "Borges",
+    "incorrecta2": "García Márquez",
+    "incorrecta3": "Vargas Llosa",
+    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
+    "objectFit": "cover"
+  },
+  {
+    "categoria": "Arte y literatura",
+    "pregunta": "¿Quién escribió \"La ciudad y los perros\"?",
+    "respuesta": "Mario Vargas Llosa",
+    "incorrecta1": "Borges",
+    "incorrecta2": "García Márquez",
+    "incorrecta3": "Cortázar",
+    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
+    "objectFit": "cover"
+  }
+]

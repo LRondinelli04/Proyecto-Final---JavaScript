@@ -35,7 +35,7 @@ let jugadores = [];
 let turnoActual = 0;
 
 io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
+  console.log('Usuario conectado:', socket.id);
 
   // Manejar el registro de los jugadores
   socket.on('registrarJugador', (jugador) => {
@@ -54,7 +54,8 @@ io.on('connection', (socket) => {
   socket.on('lanzarDado', () => {
     if (jugadores[turnoActual].id === socket.id) {
       const dado = Math.floor(Math.random() * 6) + 1;
-      io.emit('resultadoDado', { jugador: turnoActual + 1, resultado: dado });
+      const pregunta = preguntas[Math.floor(Math.random() * preguntas.length)];
+      io.emit('resultadoDado', { jugador: turnoActual + 1, resultado: dado, pregunta });
       turnoActual = (turnoActual + 1) % 2;
     }
   });

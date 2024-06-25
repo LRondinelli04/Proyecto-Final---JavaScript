@@ -1,53 +1,83 @@
-/* Mantenemos tu estilo existente y añadimos algunos nuevos */
-
 * {
-    transition: all 0.3s;
-  }
-  
-  body {
-    background: cadetblue;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    font-family: calibri;
-    font-size: 120%;
-  }
-  
-  .contenedor {
-    width: 98vw;
-    height: 97vh;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #players {
-    margin-bottom: 20px;
-  }
-  
-  #turnIndicator {
-    margin-bottom: 20px;
-  }
-  
-  #rollDice {
-    margin-bottom: 20px;
-  }
-  
-  .pregunta-container {
-    display: none;
-  }
-  
-  .btn {
-    background: white;
-    width: 60%;
-    max-width: 550px;
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    transform: scale(1.05);
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+#casillas {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+}
+
+.tablero {
+  width: 100%;
+  max-width: 300px;
+}
+
+.casilla {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  background-color: #f0f0f0;
+}
+
+.entrada,
+.salida {
+  background-color: #d3d3d3;
+  width: 100%;
+  margin: 50px 0;
+}
+
+.controles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#btn-dado {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  transition: all 0.3s;
+  background-color: #007bff;
+  border-radius: 8px;
+  color: black;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+#btn-dado:hover {
+  background-color: #0056b3;
+  scale: 1.1;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mensaje {
+  margin-top: 10px;
+}
+
+.pregunta,
+.respuestas {
+  margin-top: 20px;
+}
+
+.mensaje{
+  text-transform: uppercase;
+  border-bottom: 1px solid #000;
+}
+
+.pregunta {
+  font-weight: 900;
+}
