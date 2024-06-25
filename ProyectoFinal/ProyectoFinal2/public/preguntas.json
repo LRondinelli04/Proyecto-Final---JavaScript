@@ -1,72 +1,162 @@
 [
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "¿Quién pintó la mona lisa?",
-    "respuesta": "Leonardo da Vinci",
-    "incorrecta1": "Picasso",
-    "incorrecta2": "Miguel Ángel",
-    "incorrecta3": "Monet",
-    "imagen": "https://i.ibb.co/9cjvmw1/mona-lisa.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es la capital de Francia?",
+    "respuestas": [
+      { "texto": "París", "correcta": true },
+      { "texto": "Londres", "correcta": false },
+      { "texto": "Madrid", "correcta": false }
+    ]
   },
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "Pintor de  \"El jardín de las delicias\"",
-    "respuesta": "El Bosco",
-    "incorrecta1": "Velásquez",
-    "incorrecta2": "Picasso",
-    "incorrecta3": "Dalí",
-    "imagen": "https://i.ibb.co/SDjX7PM/jardin-de-las-delicias.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es el río más largo del mundo?",
+    "respuestas": [
+      { "texto": "Amazonas", "correcta": true },
+      { "texto": "Nilo", "correcta": false },
+      { "texto": "Misisipi", "correcta": false }
+    ]
   },
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "¿Quién escribió \"Don Quijote de la Mancha\"?",
-    "respuesta": "Miguel de Cervantes",
-    "incorrecta1": "García Márquez",
-    "incorrecta2": "Lope de Vega",
-    "incorrecta3": "Borges",
-    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es el país más grande del mundo?",
+    "respuestas": [
+      { "texto": "Rusia", "correcta": true },
+      { "texto": "Canadá", "correcta": false },
+      { "texto": "China", "correcta": false }
+    ]
   },
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "¿Quién escribió \"Cien años de soledad\"?",
-    "respuesta": "Gabriel García Márquez",
-    "incorrecta1": "Borges",
-    "incorrecta2": "Cortázar",
-    "incorrecta3": "Vargas Llosa",
-    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es el océano más grande del mundo?",
+    "respuestas": [
+      { "texto": "Pacífico", "correcta": true },
+      { "texto": "Atlántico", "correcta": false },
+      { "texto": "Índico", "correcta": false }
+    ]
   },
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "¿Quién escribió \"El Aleph\"?",
-    "respuesta": "Jorge Luis Borges",
-    "incorrecta1": "Cortázar",
-    "incorrecta2": "García Márquez",
-    "incorrecta3": "Vargas Llosa",
-    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es el país más poblado del mundo?",
+    "respuestas": [
+      { "texto": "China", "correcta": true },
+      { "texto": "India", "correcta": false },
+      { "texto": "Estados Unidos", "correcta": false }
+    ]
   },
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "¿Quién escribió \"Rayuela\"?",
-    "respuesta": "Julio Cortázar",
-    "incorrecta1": "Borges",
-    "incorrecta2": "García Márquez",
-    "incorrecta3": "Vargas Llosa",
-    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es el país más pequeño del mundo?",
+    "respuestas": [
+      { "texto": "Ciudad del Vaticano", "correcta": true },
+      { "texto": "Mónaco", "correcta": false },
+      { "texto": "San Marino", "correcta": false }
+    ]
   },
   {
-    "categoria": "Arte y literatura",
-    "pregunta": "¿Quién escribió \"La ciudad y los perros\"?",
-    "respuesta": "Mario Vargas Llosa",
-    "incorrecta1": "Borges",
-    "incorrecta2": "García Márquez",
-    "incorrecta3": "Cortázar",
-    "imagen": "https://i.ibb.co/7vJ2v1V/don-quijote.jpg",
-    "objectFit": "cover"
+    "pregunta": "¿Cuál es el país más antiguo del mundo?",
+    "respuestas": [
+      { "texto": "Egipto", "correcta": true },
+      { "texto": "China", "correcta": false },
+      { "texto": "Grecia", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más joven del mundo?",
+    "respuestas": [
+      { "texto": "Sudán del Sur", "correcta": true },
+      { "texto": "Kosovo", "correcta": false },
+      { "texto": "Timor Oriental", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más rico del mundo?",
+    "respuestas": [
+      { "texto": "Qatar", "correcta": true },
+      { "texto": "Luxemburgo", "correcta": false },
+      { "texto": "Singapur", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más pobre del mundo?",
+    "respuestas": [
+      { "texto": "Burundi", "correcta": true },
+      { "texto": "Malaui", "correcta": false },
+      { "texto": "Níger", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más grande de Europa?",
+    "respuestas": [
+      { "texto": "Rusia", "correcta": true },
+      { "texto": "Ucrania", "correcta": false },
+      { "texto": "Francia", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más pequeño de Europa?",
+    "respuestas": [
+      { "texto": "Ciudad del Vaticano", "correcta": true },
+      { "texto": "Mónaco", "correcta": false },
+      { "texto": "San Marino", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más grande de América?",
+    "respuestas": [
+      { "texto": "Canadá", "correcta": true },
+      { "texto": "Estados Unidos", "correcta": false },
+      { "texto": "Brasil", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más pequeño de América?",
+    "respuestas": [
+      { "texto": "San Cristóbal y Nieves", "correcta": true },
+      { "texto": "Antigua y Barbuda", "correcta": false },
+      { "texto": "Barbados", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más grande de Asia?",
+    "respuestas": [
+      { "texto": "Rusia", "correcta": true },
+      { "texto": "China", "correcta": false },
+      { "texto": "India", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más pequeño de Asia?",
+    "respuestas": [
+      { "texto": "Maldivas", "correcta": true },
+      { "texto": "Singapur", "correcta": false },
+      { "texto": "Brunéi", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más grande de África?",
+    "respuestas": [
+      { "texto": "Argelia", "correcta": true },
+      { "texto": "República Democrática del Congo", "correcta": false },
+      { "texto": "Sudán", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más pequeño de África?",
+    "respuestas": [
+      { "texto": "Seychelles", "correcta": true },
+      { "texto": "Mauricio", "correcta": false },
+      { "texto": "Comoras", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más grande de Oceanía?",
+    "respuestas": [
+      { "texto": "Australia", "correcta": true },
+      { "texto": "Papúa Nueva Guinea", "correcta": false },
+      { "texto": "Nueva Zelanda", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el país más pequeño de Oceanía?",
+    "respuestas": [
+      { "texto": "Nauru", "correcta": true },
+      { "texto": "Tuvalu", "correcta": false },
+      { "texto": "Palaos", "correcta": false }
+    ]
   }
 ]

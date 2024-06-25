@@ -33,31 +33,56 @@ fs.readFile(path.join(__dirname, '..', 'public', 'preguntas.json'), 'utf-8', (er
 
 let jugadores = [];
 let turnoActual = 0;
+const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
+const MAX_CASILLAS = 24;
 
 io.on('connection', (socket) => {
-  console.log('Usuario conectado:', socket.id);
+  console.log('A user connected:', socket.id);
 
-  // Manejar el registro de los jugadores
   socket.on('registrarJugador', (jugador) => {
     if (jugadores.length < 2) {
       jugadores.push({ id: socket.id, ...jugador });
       io.to(socket.id).emit('registroExitoso', jugadores.length);
       if (jugadores.length === 2) {
-        io.emit('iniciarJuego');
+        io.emit('iniciarJuego', { jugadores });
       }
     } else {
       socket.emit('juegoLleno');
     }
   });
 
-  // Manejar el lanzamiento del dado
   socket.on('lanzarDado', () => {
     if (jugadores[turnoActual].id === socket.id) {
       const dado = Math.floor(Math.random() * 6) + 1;
+      const nuevaPosicion = posicionesJugadores[turnoActual] + dado;
+
+      if (nuevaPosicion >= MAX_CASILLAS) {
+        io.emit('juegoTerminado', { ganador: turnoActual + 1 });
+        return;
+      }
+
       const pregunta = preguntas[Math.floor(Math.random() * preguntas.length)];
-      io.emit('resultadoDado', { jugador: turnoActual + 1, resultado: dado, pregunta });
-      turnoActual = (turnoActual + 1) % 2;
+      io.to(socket.id).emit('resultadoDado', { jugador: turnoActual + 1, resultado: dado, pregunta, nuevaPosicion });
     }
+  });
+
+  socket.on('respuesta', ({ jugador, correcta, nuevaPosicion }) => {
+    if (jugador === turnoActual + 1) {
+      if (correcta && !posicionesJugadores.includes(nuevaPosicion)) {
+        posicionesJugadores[turnoActual] = nuevaPosicion;
+        if (posicionesJugadores[turnoActual] >= MAX_CASILLAS) {
+          io.emit('juegoTerminado', { ganador: turnoActual + 1 });
+          return;
+        }
+      }
+
+      turnoActual = (turnoActual + 1) % 2;
+      io.emit('actualizarTablero', { posiciones: posicionesJugadores, turno: turnoActual + 1 });
+    }
+  });
+
+  socket.on('abandonar', ({ jugador }) => {
+    io.emit('juegoTerminado', { ganador: jugador === 1 ? 2 : 1 });
   });
 
   socket.on('disconnect', () => {

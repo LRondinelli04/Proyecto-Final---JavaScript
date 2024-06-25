@@ -1,46 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Preguntas y Respuestas</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js" defer></script>
-  </head>
-  <body>
-    <div class="contenedor">
-      <div id="tablero" class="tablero">
-        <div class="casilla entrada">Entrada</div>
-        <div id="casillas">
-          <div class="casilla" id="casilla-1">1</div>
-          <div class="casilla" id="casilla-2">2</div>
-          <div class="casilla" id="casilla-3">3</div>
-          <div class="casilla" id="casilla-4">4</div>
-          <div class="casilla" id="casilla-5">5</div>
-          <div class="casilla" id="casilla-6">6</div>
-          <div class="casilla" id="casilla-7">7</div>
-          <div class="casilla" id="casilla-8">8</div>
-          <div class="casilla" id="casilla-9">9</div>
-          <div class="casilla" id="casilla-10">10</div>
-          <div class="casilla" id="casilla-11">11</div>
-          <div class="casilla" id="casilla-12">12</div>
-          <div class="casilla" id="casilla-13">13</div>
-          <div class="casilla" id="casilla-14">14</div>
-          <div class="casilla" id="casilla-15">15</div>
-          <div class="casilla" id="casilla-16">16</div>
-          <div class="casilla" id="casilla-17">17</div>
-          <div class="casilla" id="casilla-18">18</div>
-          <div class="casilla" id="casilla-19">19</div>
-          <div class="casilla" id="casilla-20">20</div>
-        </div>
-        <div class="casilla salida">Salida</div>
-      </div>
-      <div class="controles">
-        <button id="btn-dado">Tirar Dado</button>
-        <div id="mensaje" class="mensaje"></div>
-        <div id="pregunta" class="pregunta"></div>
-        <div id="respuestas" class="respuestas"></div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Preguntas y Respuestas</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <div class="contenedor">
+    <div id="tablero" class="tablero">
+      <!-- Aquí va el tablero del juego -->
     </div>
-  </body>
+    <div class="controles">
+      <button id="btn-dado">Tirar Dado</button>
+      <button id="btn-abandonar">Abandonar</button>
+      <div id="mensaje" class="mensaje"></div>
+      <div id="pregunta" class="pregunta"></div>
+      <div id="respuestas" class="respuestas"></div>
+    </div>
+  </div>
+</body>
 </html>
