@@ -38,7 +38,7 @@ fs.readFile(
 let jugadores = [];
 let turnoActual = 0;
 const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
-const MAX_CASILLAS = 24;
+const MAX_CASILLAS = 20;
 
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
@@ -58,11 +58,10 @@ io.on("connection", (socket) => {
   socket.on("lanzarDado", () => {
     if (jugadores[turnoActual].id === socket.id) {
       const dado = Math.floor(Math.random() * 6) + 1;
-      const nuevaPosicion = posicionesJugadores[turnoActual] + dado;
+      let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
 
       if (nuevaPosicion >= MAX_CASILLAS) {
-        io.emit("juegoTerminado", { ganador: turnoActual + 1 });
-        return;
+        nuevaPosicion = MAX_CASILLAS;
       }
 
       const pregunta = preguntas[Math.floor(Math.random() * preguntas.length)];

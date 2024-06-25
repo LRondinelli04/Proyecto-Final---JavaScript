@@ -1,8 +1,8 @@
 .contenedor {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
+  margin-top: 20px;
 }
 
 .tablero {
@@ -15,30 +15,26 @@
 .casilla {
   width: 50px;
   height: 50px;
-  border: 1px solid #000;
+  border: 1px solid black;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .controles {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.mensaje {
-  margin-bottom: 10px;
-  font-size: 1.2em;
+#mensaje {
+  margin-bottom: 20px;
 }
 
 .pregunta {
-  margin-top: 20px;
-  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 .respuestas button {
   display: block;
-  margin: 5px;
-  padding: 5px 10px;
+  margin: 5px 0;
 }
