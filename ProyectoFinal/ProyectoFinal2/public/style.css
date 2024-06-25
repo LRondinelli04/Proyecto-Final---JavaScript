@@ -1,7 +1,8 @@
 .contenedor {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+  height: 100vh;
 }
 
 .tablero {
@@ -9,7 +10,6 @@
   grid-template-columns: repeat(5, 50px);
   grid-template-rows: repeat(5, 50px);
   gap: 5px;
-  margin-bottom: 20px;
 }
 
 .casilla {
@@ -27,6 +27,18 @@
   align-items: center;
 }
 
-.mensaje, .pregunta, .respuestas {
-  margin-top: 10px;
+.mensaje {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.pregunta {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+.respuestas button {
+  display: block;
+  margin: 5px;
+  padding: 5px 10px;
 }
