@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 
   const socket = io();
 
   let jugadorNumero;
@@ -8,21 +7,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const coloresJugadores = ["red", "blue"]; // Colores de los jugadores
   let nombre = "";
 
-
   const btnDado = document.getElementById("btn-dado");
   const btnAbandonar = document.getElementById("btn-abandonar");
   const tablero = document.getElementById("tablero");
   const mensaje = document.getElementById("mensaje");
   const preguntaDiv = document.getElementById("pregunta");
   const respuestasDiv = document.getElementById("respuestas");
+  const tituloGanador = document.querySelector("#final");
 
   function crearTablero() {
     for (let i = 0; i < 20; i++) {
       const casilla = document.createElement("div");
+      casilla.innerText = i + 1;
       casilla.className = "casilla";
       casilla.id = `casilla-${i}`;
       tablero.appendChild(casilla);
-      casilla.innerHTML = i + 1;
       casilla.style.border = "1px solid black";
       casilla.style.borderRadius = "5px";
     }
@@ -32,9 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 20; i++) {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = ""; // Resetear el color de la casilla
-      casilla.innerText = ""; // Limpiar texto de la casilla
+      casilla.innerText = i + 1; // Limpiar texto de la casilla
     }
 
+    // Colocar a los jugadores en sus posiciones actuales
     posicionesJugadores.forEach((pos, index) => {
       if (pos < 20) {
         const casilla = document.getElementById(`casilla-${pos}`);
@@ -42,6 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
         casilla.innerText = `J${index + 1}`;
       }
     });
+
+    // Cuando un jugador gane, sacar al jugador del tablero
+    if (posicionesJugadores[0] >= 19) {
+      const casilla = document.getElementById(`casilla-${19}`);
+      casilla.style.backgroundColor = "";
+      casilla.innerText = 20;
+    } else if (posicionesJugadores[1] >= 19) {
+      const casilla = document.getElementById(`casilla-${19}`);
+      casilla.style.backgroundColor = "";
+      casilla.innerText = 20;
+    }
   }
 
   socket.on("connect", () => {
@@ -102,8 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("juegoTerminado", ({ ganador }) => {
-    mensaje.innerText = `Jugador ${ganador} ha ganado el juego!`;
     btnDado.disabled = true;
+    // El ganador se muestra en la casilla de fin de juego con su color respectivo y un mensaje
+    if (ganador === 1) {
+      tituloGanador.style.backgroundColor = coloresJugadores[0];
+      tituloGanador.innerText = `Jugador ${ganador} ha ganado el juego!`;
+    } else {
+      tituloGanador.style.backgroundColor = coloresJugadores[1];
+      tituloGanador.innerText = `Jugador ${ganador} ha ganado el juego!`;
+    }
   });
 
   btnDado.addEventListener("click", () => {

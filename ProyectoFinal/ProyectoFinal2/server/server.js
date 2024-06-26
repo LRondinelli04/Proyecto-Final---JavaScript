@@ -42,6 +42,14 @@ let jugadores = [];
 let turnoActual = 0;
 const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
 const MAX_CASILLAS = 20;
+const preguntasPorCasilla = []; // Array para almacenar las preguntas por casilla
+
+// Asignar preguntas a casillas
+function asignarPreguntasACasillas() {
+  for (let i = 0; i < MAX_CASILLAS; i++) {
+    preguntasPorCasilla[i] = preguntas[i % preguntas.length];
+  }
+}
 
 // Conexión de un cliente
 io.on("connection", (socket) => {
@@ -56,6 +64,8 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("registroExitoso", jugadores.length);
       // Si hay dos jugadores, iniciar el juego
       if (jugadores.length === 2) {
+        // Asignar preguntas a casillas
+        asignarPreguntasACasillas();
         // Enviar evento a ambos jugadores para iniciar el juego
         io.emit("iniciarJuego", { jugadores });
       }
@@ -75,10 +85,10 @@ io.on("connection", (socket) => {
       let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
 
       if (nuevaPosicion >= MAX_CASILLAS) {
-        nuevaPosicion = MAX_CASILLAS;
+        nuevaPosicion = MAX_CASILLAS - 1;
       }
 
-      const pregunta = preguntas[Math.floor(Math.random() * preguntas.length)];
+      const pregunta = preguntasPorCasilla[nuevaPosicion];
       io.to(socket.id).emit("resultadoDado", {
         jugador: turnoActual + 1,
         resultado: dado,
@@ -97,7 +107,7 @@ io.on("connection", (socket) => {
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
         posicionesJugadores[turnoActual] = nuevaPosicion;
         // Verificar si el jugador ha llegado a la casilla final
-        if (posicionesJugadores[turnoActual] >= MAX_CASILLAS) {
+        if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
           io.emit("juegoTerminado", { ganador: turnoActual + 1 });
           return;
         }
