@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let jugadorNumero;
   let turnoActual = 0;
+  let valorDados = 0;
   const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
   const coloresJugadores = ["red", "blue"]; // Colores de los jugadores
   let nombre = "";
@@ -27,6 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion reiniciarTablero() para limpiar el tablero cuando el juego termina
+  function reiniciarTablero() {
+    for (let i = 0; i < 20; i++) {
+      const casilla = document.getElementById(`casilla-${i}`);
+      casilla.style.backgroundColor = ""; // Resetear el color de la casilla
+      casilla.innerText = i + 1; // Limpiar texto de la casilla
+    }
+  }
+
   function actualizarTablero() {
     for (let i = 0; i < 20; i++) {
       const casilla = document.getElementById(`casilla-${i}`);
@@ -36,10 +46,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Colocar a los jugadores en sus posiciones actuales
     posicionesJugadores.forEach((pos, index) => {
+      let casilla = document.getElementById(`casilla-${pos}`);
+      const casillaAnterior = null;
+      // guardo la posicion actual del jugador en el tablero
+      let posActual = pos;
+      // guardo la posicion anterior la cual va a contener el valor de la posicion actual menos el resultado del dado
+      let posAnterior = 0;
       if (pos < 20) {
-        const casilla = document.getElementById(`casilla-${pos}`);
+        posAnterior = posActual - valorDados + 1;
         casilla.style.backgroundColor = coloresJugadores[index];
         casilla.innerText = `J${index + 1}`;
+        posActual = pos + 1;
+        console.log(
+          `Posicion anterior del jugador ${
+            index + 1
+          }: ${posAnterior}, Posicion actual del jugador ${
+            index + 1
+          }: ${posActual}`
+        );
       }
     });
   }
@@ -71,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ({ jugador, resultado, pregunta, nuevaPosicion }) => {
       if (jugador === jugadorNumero) {
         mensaje.innerText = `Obtuviste un ${resultado}. Responde la pregunta para avanzar.`;
+        valorDados = resultado;
         mostrarPregunta(pregunta, nuevaPosicion);
       } else {
         mensaje.innerText = `El Jugador ${jugador} obtuvo un ${resultado}. Espera tu turno.`;
@@ -103,11 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.on("juegoTerminado", ({ ganador }) => {
     btnDado.style.display = "none";
+    btnAbandonar.style.display = "none";
     // limpiar mensaje y respuestas
     mensaje.innerText = "";
     preguntaDiv.innerText = "";
+
+    // reiniciar tablero
+    reiniciarTablero();
+
     // El ganador se muestra en la casilla de fin de juego con su color respectivo y un mensaje
-    if (ganador === 1) {
+    if (ganador == 1) {
       tituloGanador.style.backgroundColor = coloresJugadores[0];
       tituloGanador.innerText = `Jugador ${ganador} ha ganado el juego!`;
     } else {
@@ -149,5 +179,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   crearTablero();
 });
-
-

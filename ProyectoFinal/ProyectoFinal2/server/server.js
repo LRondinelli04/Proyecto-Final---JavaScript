@@ -20,18 +20,22 @@ app.get("/", (req, res) => {
 let preguntas = [];
 
 // fs.readFile lee el archivo preguntas.json y lo almacena en la variable preguntas
-fs.readFile(path.join(__dirname, "..", "public", "preguntas.json"), "utf-8", (err, data) => {
-  if (err) {
-    console.error("Error reading JSON file:", err);
-  } else {
-    try {
-      preguntas = JSON.parse(data);
-      console.log("Preguntas cargadas:", preguntas.length);
-    } catch (e) {
-      console.error("Error parsing JSON:", e);
+fs.readFile(
+  path.join(__dirname, "..", "public", "preguntas.json"),
+  "utf-8",
+  (err, data) => {
+    if (err) {
+      console.error("Error reading JSON file:", err);
+    } else {
+      try {
+        preguntas = JSON.parse(data);
+        console.log("Preguntas cargadas:", preguntas.length);
+      } catch (e) {
+        console.error("Error parsing JSON:", e);
+      }
     }
   }
-});
+);
 
 // Variables para el juego
 let jugadores = [];
@@ -76,7 +80,9 @@ io.on("connection", (socket) => {
     // Verificar si el jugador actual es el que lanzó el dado
     if (jugadores[turnoActual].id === socket.id) {
       // Generar un número aleatorio entre 1 y 6 (DADO)
-      const dado = Math.floor(Math.random() * 6) + 1;
+      /* const dado = Math.floor(Math.random() * 6) + 1; */
+      const dado = 6;
+
       // Calcula la nueva posicion del jugador actual en el tablero sumando el resultado del dado
       let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
 
@@ -102,9 +108,12 @@ io.on("connection", (socket) => {
       // Si la respuesta es correcta y la nueva posición no está ocupada por otro jugador
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
         posicionesJugadores[turnoActual] = nuevaPosicion;
+    
         // Verificar si el jugador ha llegado a la casilla final
         if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
-          io.emit("juegoTerminado", { ganador: turnoActual + 1 });
+          io.emit("juegoTerminado", {
+            ganador: turnoActual + 1
+          });
           return;
         }
       }
