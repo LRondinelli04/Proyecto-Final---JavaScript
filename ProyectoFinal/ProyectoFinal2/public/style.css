@@ -1,15 +1,17 @@
 /* Existing styles */
 * {
+  box-sizing: border-box;
   transition: all 0.3s;
 }
 
 body {
-  background: cadetblue;
+  background: gray;
   padding: 0;
   margin: 0;
   text-align: center;
   font-family: calibri;
   font-size: 120%;
+  overflow-y: hidden;
 }
 
 .contenedor {
@@ -90,4 +92,47 @@ body {
 
 #tirar-dado {
   margin-top: 20px;
+}
+
+.finJuego {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.final {
+  border: 2px solid black;
+  padding: 10px;
+  margin-top: 20px;
+  background: white;
+  width: 60%;
+}
+
+.flecha-salida {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: black;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  position: absolute;
+  left: 33.8%;
+  top: 35.6%;
+  font-weight: 600;
+}
+
+.flecha-salida::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  margin-top: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent #4CAF50;
 }

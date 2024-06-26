@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // 
   const socket = io();
 
   let jugadorNumero;
@@ -22,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
       casilla.id = `casilla-${i}`;
       tablero.appendChild(casilla);
       casilla.innerHTML = i + 1;
+      casilla.style.border = "1px solid black";
+      casilla.style.borderRadius = "5px";
     }
   }
 
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (pos < 20) {
         const casilla = document.getElementById(`casilla-${pos}`);
         casilla.style.backgroundColor = coloresJugadores[index];
-        casilla.innerText = `Jugador ${index + 1}`;
+        casilla.innerText = `J${index + 1}`;
       }
     });
   }
