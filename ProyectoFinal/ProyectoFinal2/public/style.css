@@ -4,6 +4,13 @@
   transition: all 0.3s;
 }
 
+html {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 body {
   background: gray;
   padding: 0;
@@ -15,8 +22,6 @@ body {
 }
 
 .contenedor {
-  width: 98vw;
-  height: 97vh;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -37,6 +42,10 @@ body {
   text-align: left;
 }
 
+.controles {
+  margin: 1rem 0;
+}
+
 .pregunta {
   padding: 10px;
 }
@@ -54,6 +63,9 @@ body {
   padding: 10px;
   margin: 5px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: 700;
 }
 
 .btn:hover {
@@ -72,7 +84,6 @@ body {
   color: white;
 }
 
-/* New styles */
 .tablero {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -110,20 +121,16 @@ body {
 }
 
 .flecha-salida {
-  position: relative;
+  position: absolute;
   display: inline-block;
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: black;
   text-align: center;
   border-radius: 4px;
   font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-  position: absolute;
-  left: 33.8%;
-  top: 35.6%;
   font-weight: 600;
+  left: 0;
 }
 
 .flecha-salida::after {
@@ -134,5 +141,5 @@ body {
   margin-top: -10px;
   border-width: 10px;
   border-style: solid;
-  border-color: transparent transparent transparent #4CAF50;
+  border-color: transparent transparent transparent #4caf50;
 }
