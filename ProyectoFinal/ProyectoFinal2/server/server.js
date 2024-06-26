@@ -20,22 +20,18 @@ app.get("/", (req, res) => {
 let preguntas = [];
 
 // fs.readFile lee el archivo preguntas.json y lo almacena en la variable preguntas
-fs.readFile(
-  path.join(__dirname, "..", "public", "preguntas.json"),
-  "utf-8",
-  (err, data) => {
-    if (err) {
-      console.error("Error reading JSON file:", err);
-    } else {
-      try {
-        preguntas = JSON.parse(data);
-        console.log("Preguntas cargadas:", preguntas.length);
-      } catch (e) {
-        console.error("Error parsing JSON:", e);
-      }
+fs.readFile(path.join(__dirname, "..", "public", "preguntas.json"), "utf-8", (err, data) => {
+  if (err) {
+    console.error("Error reading JSON file:", err);
+  } else {
+    try {
+      preguntas = JSON.parse(data);
+      console.log("Preguntas cargadas:", preguntas.length);
+    } catch (e) {
+      console.error("Error parsing JSON:", e);
     }
   }
-);
+});
 
 // Variables para el juego
 let jugadores = [];

@@ -42,17 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         casilla.innerText = `J${index + 1}`;
       }
     });
-
-    // Cuando un jugador gane, sacar al jugador del tablero
-    if (posicionesJugadores[0] >= 19) {
-      const casilla = document.getElementById(`casilla-${19}`);
-      casilla.style.backgroundColor = "";
-      casilla.innerText = 20;
-    } else if (posicionesJugadores[1] >= 19) {
-      const casilla = document.getElementById(`casilla-${19}`);
-      casilla.style.backgroundColor = "";
-      casilla.innerText = 20;
-    }
   }
 
   socket.on("connect", () => {
@@ -113,7 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("juegoTerminado", ({ ganador }) => {
-    btnDado.disabled = true;
+    btnDado.style.display = "none";
+    // limpiar mensaje y respuestas
+    mensaje.innerText = "";
+    preguntaDiv.innerText = "";
     // El ganador se muestra en la casilla de fin de juego con su color respectivo y un mensaje
     if (ganador === 1) {
       tituloGanador.style.backgroundColor = coloresJugadores[0];
@@ -157,3 +149,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   crearTablero();
 });
+
+
