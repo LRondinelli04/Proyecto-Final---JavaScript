@@ -170,6 +170,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnAbandonar.addEventListener("click", () => {
     socket.emit("abandonar", { jugador: jugadorNumero });
+    // limpiar el tablero
+    reiniciarTablero();
+    // limpiar mensajes, preguntas y respuestas
+    mensaje.innerText = "";
+    preguntaDiv.innerText = "";
+    respuestasDiv.innerHTML = "";
   });
 
   function mostrarPregunta(pregunta, nuevaPosicion) {
