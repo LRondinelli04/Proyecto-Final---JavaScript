@@ -77,6 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("iniciarJuego", ({ jugadores }) => {
+
+    // imprimir en consola los jugadores
+    forEach(jugadores, (jugador) => {
+      console.log(jugador);
+    });
+
+
     nombreJugador1 = jugadores[0].nombre;
     nombreJugador2 = jugadores[1].nombre;
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
