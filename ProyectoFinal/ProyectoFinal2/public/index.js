@@ -126,6 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     preguntaDiv.innerText = "";
     respuestasDiv.innerHTML = "";
+    // Habilitar el botón de lanzar dado para el siguiente turno
+    btnDado.disabled = false;
   });
 
   socket.on("juegoTerminado", ({ ganador }) => {
@@ -148,6 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
   btnDado.addEventListener("click", () => {
     if (jugadorNumero === turnoActual + 1) {
       socket.emit("lanzarDado");
+      // Desabilitar el botón de lanzar dado para evitar que el jugador lance el dado más de una vez
+      btnDado.disabled = true;
     } else {
       let nombreTurnoActual;
       let nombreOtroJugador;
