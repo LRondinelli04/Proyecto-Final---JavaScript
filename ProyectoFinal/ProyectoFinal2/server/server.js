@@ -56,10 +56,7 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("registroExitoso", jugadores.length);
       if (jugadores.length === 2) {
         asignarPreguntasACasillas();
-        // Evento para iniciar el juego
-        socket.on("iniciarJuego", ({ jugadores }) => {
-          io.emit("iniciarJuego", { jugadores });
-        });
+        io.emit("iniciarJuego", { jugadores });
       }
     } else {
       socket.emit("juegoLleno");
