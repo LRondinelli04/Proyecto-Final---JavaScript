@@ -70,11 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
-    const color =
-      coloresJugadores.length < 2
-        ? prompt("Ingrese el color de su ficha:")
-        : coloresJugadores[coloresJugadores.length - 1];
-    socket.emit("registrarJugador", { nombre, color });
+    socket.emit("registrarJugador", { nombre });
   });
 
   socket.on("registroExitoso", (numero) => {
