@@ -77,9 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ? prompt("Ingrese el color de su ficha:")
         : coloresJugadores[coloresJugadores.length - 1];
     socket.emit("registrarJugador", { nombre, color });
-
-    // Mostrar en consola Los nombres de los jugadores
-    console.log(nombres);
   });
 
   socket.on("registroExitoso", (numero) => {
@@ -99,6 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
       mensaje.innerText = "Es tu turno!";
     }
     actualizarTablero();
+
+    // Mostrar en consola Los nombres de los jugadores
+    console.log(nombres[0], nombres[1]);
   });
 
   socket.on(
