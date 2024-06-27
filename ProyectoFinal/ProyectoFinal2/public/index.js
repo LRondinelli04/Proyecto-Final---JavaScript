@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const posicionesJugadores = [0, 0];
   const coloresJugadores = ["red", "blue"];
   let nombre = "";
+  let nombreJugador1 = "";
+  let nombreJugador2 = "";
 
   const btnDado = document.getElementById("btn-dado");
   const btnAbandonar = document.getElementById("btn-abandonar");
@@ -75,9 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("iniciarJuego", ({ jugadores }) => {
-    mensaje.innerText = "El juego ha comenzado. Es tu turno!";
+    nombreJugador1 = jugadores[0].nombre;
+    nombreJugador2 = jugadores[1].nombre;
+    mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
     if (jugadorNumero !== 1) {
-      mensaje.innerText = `Es el turno de ${jugadores[0].nombre}.`;
+      mensaje.innerText = `Es el turno de ${nombreJugador1}.`;
     }
     actualizarTablero();
   });
@@ -139,9 +143,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (jugadorNumero === turnoActual + 1) {
       socket.emit("lanzarDado");
     } else {
-      mensaje.innerText = `Es el turno de ${
-        jugadores[turnoActual].nombre
-      }.`;
+      const nombreTurnoActual =
+        turnoActual === 0 ? nombreJugador1 : nombreJugador2;
+      const nombreOtroJugador =
+        turnoActual === 0 ? nombreJugador2 : nombreJugador1;
+      mensaje.innerText = `No es tu turno. Es el turno de ${nombreOtroJugador}.`;
     }
   });
 

@@ -56,7 +56,10 @@ io.on("connection", (socket) => {
       io.to(socket.id).emit("registroExitoso", jugadores.length);
       if (jugadores.length === 2) {
         asignarPreguntasACasillas();
-        io.emit("iniciarJuego", { jugadores });
+        // Evento para iniciar el juego
+        socket.on("iniciarJuego", ({ jugadores }) => {
+          io.emit("iniciarJuego", { jugadores });
+        });
       }
     } else {
       socket.emit("juegoLleno");
@@ -100,7 +103,7 @@ io.on("connection", (socket) => {
       io.emit("actualizarTablero", {
         posiciones: posicionesJugadores,
         turno: turnoActual + 1,
-        nombreTurno: jugadores[turnoActual].nombre
+        nombreTurno: jugadores[turnoActual].nombre,
       });
       io.to(socket.id).emit("respuestaEvaluada", { correcta: esCorrecta });
     }
