@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("iniciarJuego", ({ jugadores }) => {
     mensaje.innerText = "El juego ha comenzado. Es tu turno!";
     if (jugadorNumero !== 1) {
-      const nombreJugador = jugadores[jugadorNumero].nombre;
+      const nombreJugador = nombres[jugadorNumero].nombre;
       mensaje.innerText = `Es el turno de ${nombreJugador}.`;
     } else {
       mensaje.innerText = "Es tu turno!";
