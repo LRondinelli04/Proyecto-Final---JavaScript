@@ -143,10 +143,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (jugadorNumero === turnoActual + 1) {
       socket.emit("lanzarDado");
     } else {
-      const nombreTurnoActual =
-        turnoActual === 0 ? nombreJugador1 : nombreJugador2;
-      const nombreOtroJugador =
-        turnoActual === 0 ? nombreJugador2 : nombreJugador1;
+      let nombreTurnoActual;
+      let nombreOtroJugador;
+
+      if (turnoActual === 0) {
+        nombreTurnoActual = nombreJugador1;
+        nombreOtroJugador = nombreJugador2;
+      } else {
+        nombreTurnoActual = nombreJugador2;
+        nombreOtroJugador = nombreJugador1;
+      }
+
       mensaje.innerText = `No es tu turno. Es el turno de ${nombreOtroJugador}.`;
     }
   });
