@@ -121,7 +121,7 @@ body {
 }
 
 .flecha-salida {
-  position: absolute;
+  position: relative;
   display: inline-block;
   padding: 10px 20px;
   background-color: #4caf50;
@@ -130,16 +130,17 @@ body {
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  left: 0;
+  width: 100%;
 }
 
 .flecha-salida::after {
   content: "";
   position: absolute;
-  top: 50%;
-  right: -20px;
-  margin-top: -10px;
+  bottom: -17px; /* Mueve la flecha hacia abajo fuera del elemento */
+  left: 0; /* Posiciona la flecha en la esquina izquierda */
+  /* rotar sobre el eje x */
+  transform: rotate(2deg);
   border-width: 10px;
   border-style: solid;
-  border-color: transparent transparent transparent #4caf50;
+  border-color: #4caf50 transparent transparent transparent; /* Ajusta para que la flecha apunte hacia abajo */
 }
