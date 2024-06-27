@@ -10,7 +10,6 @@ const io = socketIo(server);
 
 const PORT = 3000;
 
-// Servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.get("/", (req, res) => {
@@ -19,7 +18,6 @@ app.get("/", (req, res) => {
 
 let preguntas = [];
 
-// fs.readFile lee el archivo preguntas.json y lo almacena en la variable preguntas
 fs.readFile(
   path.join(__dirname, "..", "public", "preguntas.json"),
   "utf-8",
@@ -37,53 +35,37 @@ fs.readFile(
   }
 );
 
-// Variables para el juego
 let jugadores = [];
 let turnoActual = 0;
-const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
+const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
-const preguntasPorCasilla = []; // Array para almacenar las preguntas por casilla
+const preguntasPorCasilla = [];
 
-// Asignar preguntas a casillas
 function asignarPreguntasACasillas() {
   for (let i = 0; i < MAX_CASILLAS; i++) {
     preguntasPorCasilla[i] = preguntas[i % preguntas.length];
   }
 }
 
-// Conexión de un cliente
 io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
-  // Evento para registrar un jugador
   socket.on("registrarJugador", (nombreJugador) => {
-    // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
-      // Agregar jugador a la lista de jugadores
       jugadores.push({ id: socket.id, ...nombreJugador });
       io.to(socket.id).emit("registroExitoso", jugadores.length);
-      // Si hay dos jugadores, iniciar el juego
       if (jugadores.length === 2) {
-        // Asignar preguntas a casillas
         asignarPreguntasACasillas();
-        // Enviar evento a ambos jugadores para iniciar el juego
         io.emit("iniciarJuego", { jugadores });
       }
     } else {
-      // Enviar evento al cliente para indicar que el juego está lleno
       socket.emit("juegoLleno");
     }
   });
 
-  // Evento para lanzar el dado
   socket.on("lanzarDado", () => {
-    // Verificar si el jugador actual es el que lanzó el dado
     if (jugadores[turnoActual].id === socket.id) {
-      // Generar un número aleatorio entre 1 y 6 (DADO)
-      /* const dado = Math.floor(Math.random() * 6) + 1; */
-      const dado = 6;
-
-      // Calcula la nueva posicion del jugador actual en el tablero sumando el resultado del dado
+      const dado = Math.floor(Math.random() * 6) + 1;
       let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
 
       if (nuevaPosicion >= MAX_CASILLAS) {
@@ -100,29 +82,25 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Evento para responder la pregunta
   socket.on("respuesta", ({ jugador, correcta, nuevaPosicion }) => {
-    // Verificar si el jugador que responde es el que tiene el turno
     if (jugador === turnoActual + 1) {
       const esCorrecta = correcta;
-      // Si la respuesta es correcta y la nueva posición no está ocupada por otro jugador
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
         posicionesJugadores[turnoActual] = nuevaPosicion;
-    
-        // Verificar si el jugador ha llegado a la casilla final
+
         if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
           io.emit("juegoTerminado", {
-            ganador: turnoActual + 1
+            ganador: turnoActual + 1,
           });
           return;
         }
       }
 
-      // Cambiar el turno al siguiente jugador
       turnoActual = (turnoActual + 1) % 2;
       io.emit("actualizarTablero", {
         posiciones: posicionesJugadores,
         turno: turnoActual + 1,
+        nombreTurno: jugadores[turnoActual].nombre
       });
       io.to(socket.id).emit("respuestaEvaluada", { correcta: esCorrecta });
     }
