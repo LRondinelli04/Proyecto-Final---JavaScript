@@ -92,6 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (jugadorNumero !== 1) {
       const nombreJugador1 = jugadores[0].nombre;
       mensaje.innerText = `Es el turno de ${nombreJugador1}.`;
+    } else if (jugadorNumero !== 2) {
+      const nombreJugador2 = jugadores[1].nombre;
+      mensaje.innerText = `Es el turno de ${nombreJugador2}.`;
     } else {
       mensaje.innerText = "Es tu turno!";
     }
