@@ -79,9 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("iniciarJuego", ({ jugadores }) => {
 
     // imprimir en consola los jugadores
-    forEach(jugadores, (jugador) => {
-      console.log(jugador);
-    });
+    console.log(jugadores[0].nombre);
+    console.log(jugadores[1].nombre);
 
 
     nombreJugador1 = jugadores[0].nombre;
