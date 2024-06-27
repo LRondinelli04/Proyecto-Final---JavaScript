@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let valorDados = 0;
   const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
   const coloresJugadores = ["red", "blue"]; // Colores de los jugadores
-  let nombres = [];
 
   const btnDado = document.getElementById("btn-dado");
   const btnAbandonar = document.getElementById("btn-abandonar");
@@ -71,15 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("connect", () => {
     // Ingresar el nombre del jugador al array nombre
     let nombre = prompt("Ingrese su nombre:");
-    nombres.push(nombre);
-    const color =
-      coloresJugadores.length < 2
-        ? prompt("Ingrese el color de su ficha:")
-        : coloresJugadores[coloresJugadores.length - 1];
-    socket.emit("registrarJugador", { nombre, color });
-
-    // Mostrar en consola Los nombres de los jugadores
-    console.log(nombres);
+    socket.emit("registrarJugador", { nombre });
   });
 
   socket.on("registroExitoso", (numero) => {
@@ -88,9 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("iniciarJuego", ({ jugadores }) => {
-    mensaje.innerText = "El juego ha comenzado. Es tu turno!";
+    mensaje.innerText = "El juego ha comenzado!";
     if (jugadorNumero !== 1) {
-      const nombreJugador = nombres[jugadorNumero].nombre;
+      const nombreJugador = jugadores[0].nombreJugador;
       mensaje.innerText = `Es el turno de ${nombreJugador}.`;
     } else {
       mensaje.innerText = "Es tu turno!";

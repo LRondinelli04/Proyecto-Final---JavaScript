@@ -56,11 +56,11 @@ io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
   // Evento para registrar un jugador
-  socket.on("registrarJugador", (jugador) => {
+  socket.on("registrarJugador", (nombreJugador) => {
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
       // Agregar jugador a la lista de jugadores
-      jugadores.push({ id: socket.id, ...jugador });
+      jugadores.push({ id: socket.id, ...nombreJugador });
       io.to(socket.id).emit("registroExitoso", jugadores.length);
       // Si hay dos jugadores, iniciar el juego
       if (jugadores.length === 2) {
