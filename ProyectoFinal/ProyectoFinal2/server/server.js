@@ -47,7 +47,7 @@ function asignarPreguntasACasillas() {
   }
 }
 
-io.on("connect", (socket) => {
+io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
   socket.on("registrarJugador", (nombreJugador) => {
