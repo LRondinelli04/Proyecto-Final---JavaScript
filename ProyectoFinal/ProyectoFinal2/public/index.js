@@ -30,11 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion reinicar el tablero al estado inicial (sin jugadores) cuando el juego termina
   function reiniciarTablero() {
     for (let i = 0; i < 20; i++) {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
+    }
+  }
+
+  // Funcion para asignar nombre a los jugadores en caso de que sea vacio
+  function asignarNombra(jugadores) {
+    if (jugadores[0].nombre === "") {
+      jugadores[0].nombre = "Jugador 1";
+    }
+    if (jugadores[1].nombre === "") {
+      jugadores[1].nombre = "Jugador 2";
     }
   }
 
@@ -77,11 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("iniciarJuego", ({ jugadores }) => {
+    // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+    asignarNombra(jugadores);
 
     // imprimir en consola los jugadores
     console.log(jugadores[0].nombre);
     console.log(jugadores[1].nombre);
-
 
     nombreJugador1 = jugadores[1].nombre;
     nombreJugador2 = jugadores[0].nombre;
@@ -180,21 +192,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function mostrarPregunta(pregunta, nuevaPosicion) {
     preguntaDiv.innerText = pregunta.pregunta;
-    respuestasDiv.innerHTML = "";
-    pregunta.respuestas.forEach((respuesta) => {
+    respuestasDiv.innerHTML = ""; // Limpiar respuestas anteriores
+
+    // Mezclar las respuestas
+    const respuestasMezcladas = mezclarRespuestas(pregunta.respuestas);
+
+    respuestasMezcladas.forEach((respuesta) => {
       const btn = document.createElement("button");
       btn.innerText = respuesta.texto;
+      btn.classList.add("btn-respuesta");
       btn.addEventListener("click", () => {
         socket.emit("respuesta", {
           jugador: jugadorNumero,
           correcta: respuesta.correcta,
           nuevaPosicion,
         });
-        preguntaDiv.innerText = "";
-        respuestasDiv.innerHTML = "";
+        preguntaDiv.innerText = ""; // Ocultar pregunta
+        respuestasDiv.innerHTML = ""; // Limpiar respuestas
       });
       respuestasDiv.appendChild(btn);
     });
+  }
+
+  // Función para mezclar un array
+  function mezclarRespuestas(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   crearTablero();

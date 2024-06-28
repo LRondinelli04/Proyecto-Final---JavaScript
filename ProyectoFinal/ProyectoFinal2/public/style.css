@@ -144,3 +144,22 @@ body {
   border-style: solid;
   border-color: #4caf50 transparent transparent transparent; /* Ajusta para que la flecha apunte hacia abajo */
 }
+
+.btn-respuesta {
+  background: white;
+  width: 60%;
+  max-width: 550px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: 700;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-respuesta:hover {
+  scale: 1.05;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  
+}
