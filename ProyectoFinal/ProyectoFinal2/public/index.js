@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nombreJugador2 = jugadores[0].nombre;
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
     if (jugadorNumero !== 1) {
-      mensaje.innerText = `Es el turno de ${nombreJugador1}.`;
+      mensaje.innerText = `Es el turno de ${nombreJugador2}.`;
     }
     actualizarTablero();
   });
