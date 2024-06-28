@@ -30,11 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion reinicar el tablero al estado inicial (sin jugadores) cuando el juego termina
   function reiniciarTablero() {
     for (let i = 0; i < 20; i++) {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
+    }
+  }
+
+  // Funcion para asignar nombre a los jugadores en caso de que sea vacio
+  function asignarNombra(jugadores) {
+    if (jugadores[0].nombre === "") {
+      jugadores[0].nombre = "Jugador 1";
+    }
+    if (jugadores[1].nombre === "") {
+      jugadores[1].nombre = "Jugador 2";
     }
   }
 
@@ -68,11 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
-    const color =
-      coloresJugadores.length < 2
-        ? prompt("Ingrese el color de su ficha:")
-        : coloresJugadores[coloresJugadores.length - 1];
-    socket.emit("registrarJugador", { nombre, color });
+    socket.emit("registrarJugador", { nombre });
   });
 
   socket.on("registroExitoso", (numero) => {
@@ -81,8 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("iniciarJuego", ({ jugadores }) => {
-    nombreJugador1 = jugadores[0].nombre;
-    nombreJugador2 = jugadores[1].nombre;
+    // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+    asignarNombra(jugadores);
+
+    // imprimir en consola los jugadores
+    console.log(jugadores[0].nombre);
+    console.log(jugadores[1].nombre);
+
+    nombreJugador1 = jugadores[1].nombre;
+    nombreJugador2 = jugadores[0].nombre;
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
     if (jugadorNumero !== 1) {
       mensaje.innerText = `Es el turno de ${nombreJugador1}.`;
@@ -124,6 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     preguntaDiv.innerText = "";
     respuestasDiv.innerHTML = "";
+    // Habilitar el botón de lanzar dado para el siguiente turno
+    btnDado.disabled = false;
   });
 
   socket.on("juegoTerminado", ({ ganador }) => {
@@ -146,34 +162,65 @@ document.addEventListener("DOMContentLoaded", () => {
   btnDado.addEventListener("click", () => {
     if (jugadorNumero === turnoActual + 1) {
       socket.emit("lanzarDado");
+      // Desabilitar el botón de lanzar dado para evitar que el jugador lance el dado más de una vez
+      btnDado.disabled = true;
     } else {
-      const nombreTurnoActual = turnoActual === 0 ? nombreJugador1 : nombreJugador2;
-      const nombreOtroJugador = turnoActual === 0 ? nombreJugador2 : nombreJugador1;
+      let nombreTurnoActual;
+      let nombreOtroJugador;
+
+      if (turnoActual === 0) {
+        nombreTurnoActual = nombreJugador1;
+        nombreOtroJugador = nombreJugador2;
+      } else {
+        nombreTurnoActual = nombreJugador2;
+        nombreOtroJugador = nombreJugador1;
+      }
+
       mensaje.innerText = `No es tu turno. Es el turno de ${nombreOtroJugador}.`;
     }
   });
 
   btnAbandonar.addEventListener("click", () => {
     socket.emit("abandonar", { jugador: jugadorNumero });
+    // limpiar el tablero
+    reiniciarTablero();
+    // limpiar mensajes, preguntas y respuestas
+    mensaje.innerText = "";
+    preguntaDiv.innerText = "";
+    respuestasDiv.innerHTML = "";
   });
 
   function mostrarPregunta(pregunta, nuevaPosicion) {
     preguntaDiv.innerText = pregunta.pregunta;
-    respuestasDiv.innerHTML = "";
-    pregunta.respuestas.forEach((respuesta) => {
+    respuestasDiv.innerHTML = ""; // Limpiar respuestas anteriores
+
+    // Mezclar las respuestas
+    const respuestasMezcladas = mezclarRespuestas(pregunta.respuestas);
+
+    respuestasMezcladas.forEach((respuesta) => {
       const btn = document.createElement("button");
       btn.innerText = respuesta.texto;
+      btn.classList.add("btn-respuesta");
       btn.addEventListener("click", () => {
         socket.emit("respuesta", {
           jugador: jugadorNumero,
           correcta: respuesta.correcta,
           nuevaPosicion,
         });
-        preguntaDiv.innerText = "";
-        respuestasDiv.innerHTML = "";
+        preguntaDiv.innerText = ""; // Ocultar pregunta
+        respuestasDiv.innerHTML = ""; // Limpiar respuestas
       });
       respuestasDiv.appendChild(btn);
     });
+  }
+
+  // Función para mezclar un array
+  function mezclarRespuestas(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   crearTablero();
