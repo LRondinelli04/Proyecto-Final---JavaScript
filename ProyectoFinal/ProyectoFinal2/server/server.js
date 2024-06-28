@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
 
         if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
           io.emit("juegoTerminado", {
-            ganador: turnoActual + 1,
+            turnoGanador: turnoActual + 1, nombreGanador: jugadores[turnoActual].nombre
           });
           return;
         }

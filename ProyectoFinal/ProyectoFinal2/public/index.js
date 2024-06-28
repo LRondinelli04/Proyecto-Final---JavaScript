@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnDado.disabled = false;
   });
 
-  socket.on("juegoTerminado", ({ ganador }) => {
+  socket.on("juegoTerminado", ({ turnoGanador, nombreGanador }) => {
     btnDado.style.display = "none";
     btnAbandonar.style.display = "none";
     mensaje.innerText = "";
@@ -150,12 +150,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reiniciarTablero();
 
-    if (ganador == 1) {
+    if (turnoGanador == 1) {
       tituloGanador.style.backgroundColor = coloresJugadores[0];
-      tituloGanador.innerText = `Jugador ${ganador} ha ganado el juego!`;
+      tituloGanador.innerText = `Jugador ${nombreGanador} ha ganado el juego!`;
     } else {
       tituloGanador.style.backgroundColor = coloresJugadores[1];
-      tituloGanador.innerText = `Jugador ${ganador} ha ganado el juego!`;
+      tituloGanador.innerText = `Jugador ${nombreGanador} ha ganado el juego!`;
     }
   });
 
