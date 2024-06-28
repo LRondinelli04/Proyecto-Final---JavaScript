@@ -42,10 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funcion para asignar nombre a los jugadores en caso de que sea vacio
   function asignarNombre(jugadores) {
-    if (jugadores[0].nombre === "" || jugadores[0].nombre === null || jugadores[0].nombre === undefined) {
+    if (
+      jugadores[0].nombre === "" ||
+      jugadores[0].nombre === null ||
+      jugadores[0].nombre === undefined
+    ) {
       jugadores[0].nombre = "Jugador 1";
     }
-    if (jugadores[1].nombre === "" || jugadores[1].nombre === null || jugadores[1].nombre === undefined) {
+    if (
+      jugadores[1].nombre === "" ||
+      jugadores[1].nombre === null ||
+      jugadores[1].nombre === undefined
+    ) {
       jugadores[1].nombre = "Jugador 2";
     }
   }
@@ -129,7 +137,11 @@ document.addEventListener("DOMContentLoaded", () => {
     posicionesJugadores[1] = posiciones[1];
     turnoActual = turno - 1;
     actualizarTablero();
-    mensaje.innerText = `Es tu turno`;
+    if (jugadorNumero === turno) {
+      mensaje.innerText = `Es tu turno, ${nombreTurno}! Lanza el dado.`;
+    } else {
+      mensaje.innerText = `Es el turno de ${nombreTurno}. Espera tu turno.`;
+    }
   });
 
   socket.on("respuestaEvaluada", ({ correcta }) => {
@@ -184,7 +196,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnAbandonar.addEventListener("click", () => {
-    socket.emit("abandonar", { jugador: jugadorNumero, cantJugadores: cantJugadores });
+    socket.emit("abandonar", {
+      jugador: jugadorNumero,
+      cantJugadores: cantJugadores,
+    });
     // limpiar el tablero
     reiniciarTablero();
     // limpiar mensajes, preguntas y respuestas
