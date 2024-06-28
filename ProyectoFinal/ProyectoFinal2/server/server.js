@@ -50,14 +50,11 @@ function asignarPreguntasACasillas() {
 io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
-  let contador = 0;
-
-  socket.on("registrarJugador", (nombresDeJugador) => {
+  socket.on("registrarJugador", (nombreJugador) => {
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
       // Agregar jugador a la lista de jugadores
-      jugadores.push({ id: socket.id, ...nombresDeJugador[contador] });
-      contador++;
+      jugadores.push({ id: socket.id, ...nombreJugador });
       io.to(socket.id).emit("registroExitoso", jugadores.length);
       // Si hay dos jugadores, iniciar el juego
       if (jugadores.length === 2) {
@@ -105,8 +102,7 @@ io.on("connection", (socket) => {
 
         if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
           io.emit("juegoTerminado", {
-            turnoGanador: turnoActual + 1,
-            nombreGanador: jugadores[turnoActual].nombre,
+            turnoGanador: turnoActual + 1, nombreGanador: jugadores[turnoActual].nombre
           });
           return;
         }
@@ -123,10 +119,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("abandonar", ({ jugador }) => {
-    io.emit("juegoTerminado", {
-      turnoGanador: jugador === 1 ? 2 : 1,
-      nombreGanador: jugadores[jugador === 1 ? 1 : 0].nombre,
-    });
+    io.emit("juegoTerminado", { turnoGanador: jugador === 1 ? 2 : 1, nombreGanador: jugadores[jugador === 1 ? 1 : 0].nombre});
   });
 
   socket.on("disconnect", () => {
