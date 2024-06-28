@@ -118,8 +118,8 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("abandonar", ({ jugador }) => {
-    io.emit("juegoTerminado", { turnoGanador: jugador === 1 ? 2 : 1, nombreGanador: jugadores[jugador === 1 ? 1 : 0].nombre});
+  socket.on("abandonar", ({ jugador, cantJugadores }) => {
+    io.emit("juegoTerminado", { turnoGanador: jugador === 1 ? 2 : 1, nombreGanador: cantJugadores[jugador === 1 ? 1 : 0]});
   });
 
   socket.on("disconnect", () => {

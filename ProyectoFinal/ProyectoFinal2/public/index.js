@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let nombre = "";
   let nombreJugador1 = "";
   let nombreJugador2 = "";
+  const cantJugadores = [];
 
   const btnDado = document.getElementById("btn-dado");
   const btnAbandonar = document.getElementById("btn-abandonar");
@@ -93,6 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // imprimir en consola los jugadores
     console.log(jugadores[0].nombre);
     console.log(jugadores[1].nombre);
+
+    cantJugadores.push(jugadores[0].nombre);
+    cantJugadores.push(jugadores[1].nombre);
 
     nombreJugador1 = jugadores[1].nombre;
     nombreJugador2 = jugadores[0].nombre;
@@ -180,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnAbandonar.addEventListener("click", () => {
-    socket.emit("abandonar", { jugador: jugadorNumero });
+    socket.emit("abandonar", { jugador: jugadorNumero, cantJugadores: cantJugadores });
     // limpiar el tablero
     reiniciarTablero();
     // limpiar mensajes, preguntas y respuestas
