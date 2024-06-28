@@ -10,6 +10,7 @@ const io = socketIo(server);
 
 const PORT = 3000;
 
+// Servir archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.get("/", (req, res) => {
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 
 let preguntas = [];
 
+// fs.readFile lee el archivo preguntas.json y lo almacena en la variable preguntas
 fs.readFile(
   path.join(__dirname, "..", "public", "preguntas.json"),
   "utf-8",
@@ -35,96 +37,99 @@ fs.readFile(
   }
 );
 
+// Variables para el juego
 let jugadores = [];
 let turnoActual = 0;
-const posicionesJugadores = [0, 0];
+const posicionesJugadores = [0, 0]; // Posiciones iniciales de los jugadores
 const MAX_CASILLAS = 20;
-const preguntasPorCasilla = [];
+const preguntasPorCasilla = []; // Array para almacenar las preguntas por casilla
 
+// Asignar preguntas a casillas
 function asignarPreguntasACasillas() {
   for (let i = 0; i < MAX_CASILLAS; i++) {
     preguntasPorCasilla[i] = preguntas[i % preguntas.length];
   }
 }
 
+// Conexión de un cliente
 io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
+  // Evento para registrar un jugador
   socket.on("registrarJugador", (nombreJugador) => {
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
       // Agregar jugador a la lista de jugadores
-      jugadores.push({ id: socket.id, ...nombreJugador });
-      io.to(socket.id).emit("registroExitoso", jugadores.length);
+      jugadores.push({ id: socket.id, nombre: nombreJugador.nombre, color: nombreJugador.color });
+
+      // Emitir evento de registro exitoso
+      socket.emit("registroExitoso", jugadores.length);
+
       // Si hay dos jugadores, iniciar el juego
       if (jugadores.length === 2) {
-        // Asignar preguntas a casillas
         asignarPreguntasACasillas();
-        // Enviar evento a ambos jugadores para iniciar el juego
         io.emit("iniciarJuego", { jugadores });
+        io.emit("actualizarTablero", { posiciones: posicionesJugadores, turno: turnoActual + 1 });
       }
-    } else {
-      // Enviar evento al cliente para indicar que el juego está lleno
-      socket.emit("juegoLleno");
     }
   });
 
+  // Evento para lanzar el dado
   socket.on("lanzarDado", () => {
-    if (jugadores[turnoActual].id === socket.id) {
-      const dado = Math.floor(Math.random() * 6) + 1;
-      let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
-
-      if (nuevaPosicion >= MAX_CASILLAS) {
-        nuevaPosicion = MAX_CASILLAS - 1;
-      }
-
-      const pregunta = preguntasPorCasilla[nuevaPosicion];
-      io.to(socket.id).emit("resultadoDado", {
-        jugador: turnoActual + 1,
-        resultado: dado,
-        pregunta,
-        nuevaPosicion,
-      });
+    const jugador = jugadores.find((j) => j.id === socket.id);
+    const indexJugador = jugadores.indexOf(jugador);
+    if (indexJugador !== turnoActual) {
+      socket.emit("esperarJugador");
+      return;
     }
+
+    const resultadoDado = Math.floor(Math.random() * 6) + 1;
+    const nuevaPosicion = Math.min(posicionesJugadores[indexJugador] + resultadoDado, MAX_CASILLAS - 1);
+    posicionesJugadores[indexJugador] = nuevaPosicion;
+
+    const pregunta = preguntasPorCasilla[nuevaPosicion];
+
+    io.emit("resultadoDado", { jugador: indexJugador + 1, resultado: resultadoDado, pregunta, nuevaPosicion });
   });
 
+  // Evento para evaluar la respuesta
   socket.on("respuesta", ({ jugador, correcta, nuevaPosicion }) => {
-    if (jugador === turnoActual + 1) {
-      const esCorrecta = correcta;
-      if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
-        posicionesJugadores[turnoActual] = nuevaPosicion;
-
-        if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
-          io.emit("juegoTerminado", {
-            ganador: turnoActual + 1,
-          });
-          return;
-        }
-      }
-
+    if (correcta) {
+      posicionesJugadores[jugador - 1] = nuevaPosicion;
       turnoActual = (turnoActual + 1) % 2;
-      io.emit("actualizarTablero", {
-        posiciones: posicionesJugadores,
-        turno: turnoActual + 1,
-        nombreTurno: jugadores[turnoActual].nombre,
-      });
-      io.to(socket.id).emit("respuestaEvaluada", { correcta: esCorrecta });
+      io.emit("actualizarTablero", { posiciones: posicionesJugadores, turno: turnoActual + 1 });
+    }
+
+    io.emit("respuestaEvaluada", { correcta });
+
+    // Verificar si el jugador ha ganado
+    if (posicionesJugadores[jugador - 1] >= MAX_CASILLAS - 1) {
+      io.emit("juegoTerminado", { ganador: jugador });
+      jugadores = [];
+      posicionesJugadores.fill(0); // Resetear posiciones
+      turnoActual = 0; // Resetear turno
     }
   });
 
-  socket.on("abandonar", ({ jugador }) => {
-    io.emit("juegoTerminado", { ganador: jugador === 1 ? 2 : 1 });
-  });
-
+  // Evento para desconexión de un cliente
   socket.on("disconnect", () => {
     console.log("Usuario desconectado:", socket.id);
-    jugadores = jugadores.filter((j) => j.id !== socket.id);
+    jugadores = jugadores.filter((jugador) => jugador.id !== socket.id);
     if (jugadores.length < 2) {
       io.emit("esperarJugador");
     }
   });
+
+  socket.on("abandonar", ({ jugador }) => {
+    console.log(`Jugador ${jugador} ha abandonado el juego.`);
+    jugadores = [];
+    posicionesJugadores.fill(0); // Resetear posiciones
+    turnoActual = 0; // Resetear turno
+    io.emit("esperarJugador");
+  });
 });
 
+// Iniciar el servidor
 server.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto: ${PORT}`);
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
