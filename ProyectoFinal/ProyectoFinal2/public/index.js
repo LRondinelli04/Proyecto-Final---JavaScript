@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funcion para asignar nombre a los jugadores en caso de que sea vacio
   function asignarNombra(jugadores) {
-    if (jugadores[0].nombre === "") {
+    if (jugadores[0].nombre === "" || jugadores[0].nombre === null) {
       jugadores[0].nombre = "Jugador 1";
     }
-    if (jugadores[1].nombre === "") {
+    if (jugadores[1].nombre === "" || jugadores[1].nombre === null) {
       jugadores[1].nombre = "Jugador 2";
     }
   }
