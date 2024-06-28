@@ -62,6 +62,7 @@ io.on("connection", (socket) => {
         asignarPreguntasACasillas();
         // Enviar evento a ambos jugadores para iniciar el juego
         io.emit("iniciarJuego", { jugadores });
+        // Enviar evento al cliente para actualizar el tablero con los nombres de los jugadores y el turno actual
         io.emit("actualizarTablero", {
           posiciones: posicionesJugadores,
           turno: turnoActual + 1,
