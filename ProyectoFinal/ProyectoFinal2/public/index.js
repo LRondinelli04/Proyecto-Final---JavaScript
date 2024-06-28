@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("iniciarJuego", ({ jugadores }) => {
-    // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+    // Si el nombre del jugador es "" (vacio) o null se le asigna nombre "Jugador 1" o "Jugador 2"
     asignarNombra(jugadores);
 
     // imprimir en consola los jugadores
