@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funcion para asignar nombre a los jugadores en caso de que sea vacio
   function asignarNombre(jugadores, nombre) {
     if (jugadores[0] === "" || jugadores[0] === undefined || jugadores[0] === null) {
-      nombre = "Jugador 1";
+      return nombre = "Jugador 1";
     } else if (jugadores[1] === "" || jugadores[1] === undefined || jugadores[1] === null) {
-      nombre = "Jugador 2";
+      return nombre = "Jugador 2";
     }
   }
 
