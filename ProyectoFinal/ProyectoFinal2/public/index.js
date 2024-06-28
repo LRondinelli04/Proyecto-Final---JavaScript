@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let valorDados = 0;
   const posicionesJugadores = [0, 0];
   const coloresJugadores = ["red", "blue"];
+  const jugadores = [];
   let nombre = "";
   let nombreJugador1 = "";
   let nombreJugador2 = "";
@@ -40,9 +41,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Funcion para asignar nombre a los jugadores en caso de que sea vacio
-  function asignarNombre(jugador) {
-    if (jugador === "" || jugador === null) {
-      return `Jugador ${jugadorNumero}`;
+  function asignarNombre(jugadores, nombre) {
+    if (jugadores.length === 1) {
+      if (
+        jugadores[0] === "" ||
+        jugadores[0] === null ||
+        jugadores[0] === undefined
+      ) {
+        nombre = "Jugador 1";
+      }
+    } else if (jugadores.length === 2) {
+      if (
+        jugadores[1] === "" ||
+        jugadores[1] === null ||
+        jugadores[1] === undefined
+      ) {
+        nombre = "Jugador 2";
+      }
     }
   }
 
@@ -75,7 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
-    asignarNombre(nombre);
+    jugadores.push(nombre);
+    asignarNombre(jugadores, nombre);
     socket.emit("registrarJugador", { nombre });
   });
 
