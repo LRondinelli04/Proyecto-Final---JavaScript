@@ -47,30 +47,21 @@ function asignarPreguntasACasillas() {
   }
 }
 
-function asignarNombre(jugadores) {
-  if (
-    jugadores[0] === "" ||
-    jugadores[0] === null ||
-    jugadores[0] === undefined
-  ) {
-    jugadores[0] = "Jugador 1";
-  } else if (
-    jugadores[1] === "" ||
-    jugadores[1] === null ||
-    jugadores[1] === undefined
-  ) {
-    jugadores[1] = "Jugador 2";
-  }
-}
-
 io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
   socket.on("registrarJugador", (nombreJugador) => {
-    // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
-    asignarNombre(jugadores);
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
+      // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+      if (
+        nombreJugador.nombre === "" ||
+        nombreJugador.nombre === null ||
+        nombreJugador.nombre === undefined
+      ) {
+        nombreJugador.nombre =
+          jugadores.length === 0 ? "Jugador 1" : "Jugador 2";
+      }
       // Agregar jugador a la lista de jugadores
       jugadores.push({ id: socket.id, ...nombreJugador });
       io.to(socket.id).emit("registroExitoso", jugadores.length);
