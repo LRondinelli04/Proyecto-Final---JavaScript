@@ -40,14 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Funcion para asignar nombre a los jugadores en caso de que sea vacio
-  function asignarNombre(jugadores) {
-    if (jugadores[0].nombre === "" || jugadores[0].nombre === null || jugadores[0].nombre === undefined) {
-      jugadores[0].nombre = "Jugador 1";
+  // Funcion para asignar nombre a los jugadores en caso de que no tenga valor en el nombre
+  function asignarNombre(nombre, numJugador) {
+    if (nombre === "" || nombre === null || nombre === undefined) {
+      nombre = `Jugador ${numJugador}`;
     }
-    if (jugadores[1].nombre === "" || jugadores[1].nombre === null || jugadores[1].nombre === undefined) {
-      jugadores[1].nombre = "Jugador 2";
-    }
+
+    return nombre;
   }
 
   function actualizarTablero() {
@@ -78,7 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   socket.on("connect", () => {
+    let numJugador = 1;
     nombre = prompt("Ingrese su nombre:");
+    contador++;
+    asignarNombre(nombre, numJugador);
     socket.emit("registrarJugador", { nombre });
   });
 
@@ -184,7 +186,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnAbandonar.addEventListener("click", () => {
-    socket.emit("abandonar", { jugador: jugadorNumero, cantJugadores: cantJugadores });
+    socket.emit("abandonar", {
+      jugador: jugadorNumero,
+      cantJugadores: cantJugadores,
+    });
     // limpiar el tablero
     reiniciarTablero();
     // limpiar mensajes, preguntas y respuestas
