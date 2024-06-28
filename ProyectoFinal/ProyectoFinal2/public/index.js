@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     turnoActual = turno - 1;
     actualizarTablero();
     if (jugadorNumero === turno) {
-      mensaje.innerText = `Es tu turno, ${nombreTurno}! Lanza el dado.`;
+      mensaje.innerText = `Es tu turno, ${nombreTurno}! Tira el dado.`;
     } else {
       mensaje.innerText = `Es el turno de ${nombreTurno}. Espera tu turno.`;
     }
