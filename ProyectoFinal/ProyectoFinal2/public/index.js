@@ -42,22 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funcion para asignar nombre a los jugadores en caso de que sea vacio
   function asignarNombre(jugadores, nombre) {
-    if (jugadores.length === 1) {
-      if (
-        jugadores[0] === "" ||
-        jugadores[0] === null ||
-        jugadores[0] === undefined
-      ) {
-        nombre = "Jugador 1";
-      }
-    } else if (jugadores.length === 2) {
-      if (
-        jugadores[1] === "" ||
-        jugadores[1] === null ||
-        jugadores[1] === undefined
-      ) {
-        nombre = "Jugador 2";
-      }
+    if (jugadores[0] === "" || jugadores[0] === undefined || jugadores[0] === null) {
+      nombre = "Jugador 1";
+    } else if (jugadores[1] === "" || jugadores[1] === undefined || jugadores[1] === null) {
+      nombre = "Jugador 2";
     }
   }
 
