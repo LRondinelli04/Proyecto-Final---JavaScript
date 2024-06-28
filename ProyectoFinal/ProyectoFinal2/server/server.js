@@ -67,10 +67,10 @@ io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
   socket.on("registrarJugador", (nombreJugador) => {
+    // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+    asignarNombre(jugadores);
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
-      // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
-      asignarNombre(jugadores);
       // Agregar jugador a la lista de jugadores
       jugadores.push({ id: socket.id, ...nombreJugador });
       io.to(socket.id).emit("registroExitoso", jugadores.length);
