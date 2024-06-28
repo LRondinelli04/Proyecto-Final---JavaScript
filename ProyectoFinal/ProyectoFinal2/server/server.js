@@ -47,12 +47,30 @@ function asignarPreguntasACasillas() {
   }
 }
 
+function asignarNombre(jugadores) {
+  if (
+    jugadores[0].nombre === "" ||
+    jugadores[0].nombre === null ||
+    jugadores[0].nombre === undefined
+  ) {
+    jugadores[0].nombre = "Jugador 1";
+  } else if (
+    jugadores[1].nombre === "" ||
+    jugadores[1].nombre === null ||
+    jugadores[1].nombre === undefined
+  ) {
+    jugadores[1].nombre = "Jugador 2";
+  }
+}
+
 io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
   socket.on("registrarJugador", (nombreJugador) => {
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
+      // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+      asignarNombre(jugadores);
       // Agregar jugador a la lista de jugadores
       jugadores.push({ id: socket.id, ...nombreJugador });
       io.to(socket.id).emit("registroExitoso", jugadores.length);
@@ -102,7 +120,8 @@ io.on("connection", (socket) => {
 
         if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
           io.emit("juegoTerminado", {
-            turnoGanador: turnoActual + 1, nombreGanador: jugadores[turnoActual].nombre
+            turnoGanador: turnoActual + 1,
+            nombreGanador: jugadores[turnoActual].nombre,
           });
           return;
         }
@@ -119,7 +138,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("abandonar", ({ jugador, cantJugadores }) => {
-    io.emit("juegoTerminado", { turnoGanador: jugador === 1 ? 2 : 1, nombreGanador: cantJugadores[jugador === 1 ? 1 : 0]});
+    io.emit("juegoTerminado", {
+      turnoGanador: jugador === 1 ? 2 : 1,
+      nombreGanador: cantJugadores[jugador === 1 ? 1 : 0],
+    });
   });
 
   socket.on("disconnect", () => {
