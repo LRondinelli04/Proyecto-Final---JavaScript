@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nombreJugador2 = jugadores[0].nombre;
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
     if (jugadorNumero !== 1) {
-      mensaje.innerText = `Es tu turno`;
+      mensaje.innerText = `Es el turno de ${nombreJugador2}.`;
     }
     actualizarTablero();
   });
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     posicionesJugadores[1] = posiciones[1];
     turnoActual = turno - 1;
     actualizarTablero();
-    mensaje.innerText = `Es el turno de ${nombreTurno}.`;
+    mensaje.innerText = `Es tu turno`;
   });
 
   socket.on("respuestaEvaluada", ({ correcta }) => {
