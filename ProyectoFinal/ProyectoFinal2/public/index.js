@@ -163,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mensaje.innerText = "";
     preguntaDiv.innerText = "";
 
+    mensaje.classList.add("hidden");
     reiniciarTablero();
 
     if (turnoGanador == 1) {
