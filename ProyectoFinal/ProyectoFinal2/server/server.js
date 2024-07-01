@@ -44,17 +44,23 @@ const preguntasPorCasilla = [];
 
 // Funcion para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
+  // Copiar las preguntas disponibles para no modificar el arreglo original
   const preguntasDisponibles = [...preguntas];
   for (let i = 0; i < MAX_CASILLAS; i++) {
+    // Seleccionar una pregunta aleatoria y agregarla a la lista de preguntas por casilla
     const index = Math.floor(Math.random() * preguntasDisponibles.length);
     preguntasPorCasilla.push(preguntasDisponibles[index]);
     preguntasDisponibles.splice(index, 1);
   }
 }
 
+//! CODIGO SERVER-SIDE
+
+// Evento de conexión de un cliente
 io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
+  // Evento para registrar un jugador
   socket.on("registrarJugador", (nombreJugador) => {
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
@@ -89,6 +95,7 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Evento para lanzar el dado
   socket.on("lanzarDado", () => {
     if (jugadores[turnoActual].id === socket.id) {
       const dado = Math.floor(Math.random() * 6) + 1;
@@ -99,6 +106,7 @@ io.on("connection", (socket) => {
       }
 
       const pregunta = preguntasPorCasilla[nuevaPosicion];
+      // Enviar evento al cliente con el resultado del dado
       io.to(socket.id).emit("resultadoDado", {
         jugador: turnoActual + 1,
         resultado: dado,
@@ -108,6 +116,7 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Evento para responder una pregunta
   socket.on("respuesta", ({ jugador, correcta, nuevaPosicion }) => {
     if (jugador === turnoActual + 1) {
       const esCorrecta = correcta;
@@ -115,6 +124,7 @@ io.on("connection", (socket) => {
         posicionesJugadores[turnoActual] = nuevaPosicion;
 
         if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
+          // Enviar evento al cliente para indicar que el juego ha terminado
           io.emit("juegoTerminado", {
             turnoGanador: turnoActual + 1,
             nombreGanador: jugadores[turnoActual].nombre,
@@ -124,22 +134,27 @@ io.on("connection", (socket) => {
       }
 
       turnoActual = (turnoActual + 1) % 2;
+      // Enviar evento al cliente para actualizar el tablero con las nuevas posiciones y el turno actual
       io.emit("actualizarTablero", {
         posiciones: posicionesJugadores,
         turno: turnoActual + 1,
         nombreTurno: jugadores[turnoActual].nombre,
       });
+      // Enviar evento al cliente con la respuesta evaluada
       io.to(socket.id).emit("respuestaEvaluada", { correcta: esCorrecta });
     }
   });
 
+  // Evento para abandonar el juego
   socket.on("abandonar", ({ jugador, cantJugadores }) => {
+    // Cuando un jugador abandona, se envía un evento al cliente para indicar que el juego ha terminado
     io.emit("juegoTerminado", {
       turnoGanador: jugador === 1 ? 2 : 1,
       nombreGanador: cantJugadores[jugador === 1 ? 1 : 0],
     });
   });
 
+  // Evento de desconexión de un cliente para mostrar mensaje en consola
   socket.on("disconnect", () => {
     console.log("Usuario desconectado:", socket.id);
     jugadores = jugadores.filter((j) => j.id !== socket.id);
