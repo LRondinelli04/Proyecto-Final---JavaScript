@@ -18,7 +18,15 @@ body {
   text-align: center;
   font-family: calibri;
   font-size: 120%;
-  overflow-y: hidden;
+}
+
+h1 {
+  font-size: 2rem;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .contenedor {
