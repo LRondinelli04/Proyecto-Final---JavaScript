@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
 
+  // Variables del juego
   let jugadorNumero;
   let turnoActual = 0;
   let valorDados = 0;
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let nombreJugador2 = "";
   const cantJugadores = [];
 
+  // Constantes de los elementos del DOM
   const btnDado = document.getElementById("btn-dado");
   const btnAbandonar = document.getElementById("btn-abandonar");
   const tablero = document.getElementById("tablero");
@@ -19,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const respuestasDiv = document.getElementById("respuestas");
   const tituloGanador = document.querySelector("#final");
 
+  // Funcion para crear el tablero
   function crearTablero() {
     for (let i = 0; i < 20; i++) {
       const casilla = document.createElement("div");
@@ -58,13 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion para actualizar el tablero con las posiciones de los jugadores
   function actualizarTablero() {
+    // Reiniciar el tablero antes de actualizar las posiciones de los jugadores
     for (let i = 0; i < 20; i++) {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
     }
 
+    // Actualizar las posiciones de los jugadores en el tablero
     posicionesJugadores.forEach((pos, index) => {
       let casilla = document.getElementById(`casilla-${pos}`);
       let posActual = pos;
@@ -85,29 +91,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  //! EVENTOS DE SOCKET
+
+  // Conexion al servidor
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
     socket.emit("registrarJugador", { nombre });
   });
 
+  // Registro exitoso del jugador
   socket.on("registroExitoso", (numero) => {
     jugadorNumero = numero;
     mensaje.innerText = `Jugador ${numero} registrado. Esperando al otro jugador...`;
   });
 
+  // Inicio del juego
   socket.on("iniciarJuego", ({ jugadores }) => {
     // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
     asignarNombre(jugadores);
 
-    // imprimir en consola los jugadores
-    console.log(jugadores[0].nombre);
-    console.log(jugadores[1].nombre);
-
+    // Guardo lo jugadores en un array para mostrar el nombre en el mensaje
     cantJugadores.push(jugadores[0].nombre);
     cantJugadores.push(jugadores[1].nombre);
 
     nombreJugador1 = jugadores[1].nombre;
     nombreJugador2 = jugadores[0].nombre;
+
+    // Mostrar mensaje de inicio de juego y turno del jugador
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
     if (jugadorNumero !== 1) {
       mensaje.innerText = `Es el turno de ${nombreJugador2}.`;
@@ -115,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarTablero();
   });
 
+  // Recibir el resultado del dado
   socket.on(
     "resultadoDado",
     ({ jugador, resultado, pregunta, nuevaPosicion }) => {
@@ -128,15 +139,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
+  // Mensaje de espera de jugador hasta que se conecte el segundo jugador
   socket.on("esperarJugador", () => {
     mensaje.innerText = "Esperando al otro jugador...";
   });
 
+  // Actualizar el tablero con las posiciones de los jugadores
   socket.on("actualizarTablero", ({ posiciones, turno, nombreTurno }) => {
     posicionesJugadores[0] = posiciones[0];
     posicionesJugadores[1] = posiciones[1];
     turnoActual = turno - 1;
     actualizarTablero();
+
+    // Mostrar mensaje de turno
     if (jugadorNumero === turno) {
       mensaje.innerText = `Es tu turno, ${nombreTurno}! Tira el dado.`;
     } else {
@@ -144,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Evaluar la respuesta del jugador
   socket.on("respuestaEvaluada", ({ correcta }) => {
     if (correcta) {
       mensaje.innerText = "Respuesta correcta! Avanzas.";
@@ -157,24 +173,30 @@ document.addEventListener("DOMContentLoaded", () => {
     btnDado.disabled = false;
   });
 
+  // Evento para mostrar el ganador del juego y reiniciar el tablero
   socket.on("juegoTerminado", ({ turnoGanador, nombreGanador }) => {
+    // Reinicio el tablero y oculto los botones de lanzar dado y abandonar para evitar que el jugador siga jugando
     btnDado.style.display = "none";
     btnAbandonar.style.display = "none";
     mensaje.innerText = "";
     preguntaDiv.innerText = "";
-
     mensaje.classList.add("hidden");
     reiniciarTablero();
 
+    // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
     if (turnoGanador == 1) {
       tituloGanador.style.backgroundColor = coloresJugadores[0];
     } else {
       tituloGanador.style.backgroundColor = coloresJugadores[1];
     }
 
+    // Mostrar mensaje de ganador
     tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
   });
 
+  //! EVENTOS DE DOM
+
+  // Evento click del botón de "Tirar Dado"
   btnDado.addEventListener("click", () => {
     if (jugadorNumero === turnoActual + 1) {
       socket.emit("lanzarDado");
@@ -197,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Evento click del botón de "Abandonar"
   btnAbandonar.addEventListener("click", () => {
     socket.emit("abandonar", {
       jugador: jugadorNumero,
@@ -211,6 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     respuestasDiv.innerHTML = "";
   });
 
+  // Función para mostrar la pregunta y las respuestas
   function mostrarPregunta(pregunta, nuevaPosicion) {
     preguntaDiv.innerText = pregunta.pregunta;
     respuestasDiv.innerHTML = ""; // Limpiar respuestas anteriores
@@ -244,5 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return array;
   }
 
+  // Crear el tablero al cargar la página
   crearTablero();
 });
