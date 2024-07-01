@@ -10,7 +10,7 @@
 
 # ENUNCIADO DEL PROYECTO
 
-# Juego de preguntas y respuestas
+## Juego de preguntas y respuestas
 
 El trabajo final consiste en el desarrollo de una plantilla para un juego multijugador (mínimo 2) que incluye un tablero con casilleros, un dado, preguntas y respuestas. Las preguntas y respuestas deben estar especificadas en un archivo JSON antes de iniciar la partida. Esto permitirá cambiar el set de preguntas y respuestas en cualquier momento, por ejemplo referidas a accesibilidad Web, a lecto escritura, etc. Para el alcance del trabajo final, con disponer de un conjunto de 20 preguntas y respuestas es suficiente. Al iniciar una partida, las preguntas y respuestas se asocian aleatoriamente a las casillas del tablero.
 
