@@ -35,15 +35,20 @@ fs.readFile(
   }
 );
 
+// Variables para el juego
 let jugadores = [];
 let turnoActual = 0;
 const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
 const preguntasPorCasilla = [];
 
+// Funcion para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
+  const preguntasDisponibles = [...preguntas];
   for (let i = 0; i < MAX_CASILLAS; i++) {
-    preguntasPorCasilla[i] = preguntas[i % preguntas.length];
+    const index = Math.floor(Math.random() * preguntasDisponibles.length);
+    preguntasPorCasilla.push(preguntasDisponibles[index]);
+    preguntasDisponibles.splice(index, 1);
   }
 }
 
