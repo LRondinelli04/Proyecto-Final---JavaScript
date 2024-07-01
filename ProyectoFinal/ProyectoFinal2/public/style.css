@@ -2,6 +2,8 @@
 * {
   box-sizing: border-box;
   transition: all 0.3s;
+  padding: 0;
+  margin: 0;
 }
 
 html {
@@ -12,9 +14,8 @@ html {
 }
 
 body {
+  padding: 15px;
   background: gray;
-  padding: 0;
-  margin: 0;
   text-align: center;
   font-family: calibri;
   font-size: 120%;
