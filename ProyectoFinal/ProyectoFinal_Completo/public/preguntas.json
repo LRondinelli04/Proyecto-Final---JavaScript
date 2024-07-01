@@ -1,10 +1,10 @@
 [
   {
-    "pregunta": "¿Cuál es la capital de Francia?",
+    "pregunta": "¿Quién pintó la Mona Lisa?",
     "respuestas": [
-      { "texto": "París", "correcta": true },
-      { "texto": "Londres", "correcta": false },
-      { "texto": "Madrid", "correcta": false }
+      { "texto": "Leonardo da Vinci", "correcta": true },
+      { "texto": "Michelangelo", "correcta": false },
+      { "texto": "Rafael", "correcta": false }
     ]
   },
   {
@@ -12,19 +12,35 @@
     "respuestas": [
       { "texto": "Amazonas", "correcta": true },
       { "texto": "Nilo", "correcta": false },
-      { "texto": "Misisipi", "correcta": false }
+      { "texto": "Yangtsé", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más grande del mundo?",
+    "pregunta": "¿En qué año cayó el muro de Berlín?",
     "respuestas": [
-      { "texto": "Rusia", "correcta": true },
-      { "texto": "Canadá", "correcta": false },
-      { "texto": "China", "correcta": false }
+      { "texto": "1989", "correcta": true },
+      { "texto": "1991", "correcta": false },
+      { "texto": "1987", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el océano más grande del mundo?",
+    "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
+    "respuestas": [
+      { "texto": "Júpiter", "correcta": true },
+      { "texto": "Saturno", "correcta": false },
+      { "texto": "Urano", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Quién escribió 'Cien años de soledad'?",
+    "respuestas": [
+      { "texto": "Gabriel García Márquez", "correcta": true },
+      { "texto": "Mario Vargas Llosa", "correcta": false },
+      { "texto": "Julio Cortázar", "correcta": false }
+    ]
+  },
+  {
+    "pregunta": "¿Cuál es el océano más grande?",
     "respuestas": [
       { "texto": "Pacífico", "correcta": true },
       { "texto": "Atlántico", "correcta": false },
@@ -32,7 +48,7 @@
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más poblado del mundo?",
+    "pregunta": "¿Qué país tiene la población más grande del mundo?",
     "respuestas": [
       { "texto": "China", "correcta": true },
       { "texto": "India", "correcta": false },
@@ -40,123 +56,107 @@
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más pequeño del mundo?",
+    "pregunta": "¿Cuál es el metal más caro del mundo?",
     "respuestas": [
-      { "texto": "Ciudad del Vaticano", "correcta": true },
-      { "texto": "Mónaco", "correcta": false },
-      { "texto": "San Marino", "correcta": false }
+      { "texto": "Rodio", "correcta": true },
+      { "texto": "Oro", "correcta": false },
+      { "texto": "Platino", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más antiguo del mundo?",
+    "pregunta": "¿Quién es el autor de 'El Quijote'?",
     "respuestas": [
-      { "texto": "Egipto", "correcta": true },
-      { "texto": "China", "correcta": false },
-      { "texto": "Grecia", "correcta": false }
+      { "texto": "Miguel de Cervantes", "correcta": true },
+      { "texto": "Lope de Vega", "correcta": false },
+      { "texto": "Garcilaso de la Vega", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más joven del mundo?",
+    "pregunta": "¿Cuál es la capital de Canadá?",
     "respuestas": [
-      { "texto": "Sudán del Sur", "correcta": true },
-      { "texto": "Kosovo", "correcta": false },
-      { "texto": "Timor Oriental", "correcta": false }
+      { "texto": "Ottawa", "correcta": true },
+      { "texto": "Toronto", "correcta": false },
+      { "texto": "Montreal", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más rico del mundo?",
+    "pregunta": "¿En qué año comenzó la Segunda Guerra Mundial?",
     "respuestas": [
-      { "texto": "Qatar", "correcta": true },
-      { "texto": "Luxemburgo", "correcta": false },
-      { "texto": "Singapur", "correcta": false }
+      { "texto": "1939", "correcta": true },
+      { "texto": "1941", "correcta": false },
+      { "texto": "1937", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más pobre del mundo?",
+    "pregunta": "¿Cuál es el país más poblado de África?",
     "respuestas": [
-      { "texto": "Burundi", "correcta": true },
-      { "texto": "Malaui", "correcta": false },
-      { "texto": "Níger", "correcta": false }
+      { "texto": "Nigeria", "correcta": true },
+      { "texto": "Egipto", "correcta": false },
+      { "texto": "Etiopía", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más grande de Europa?",
+    "pregunta": "¿Cuál es el elemento químico más abundante en el universo?",
     "respuestas": [
-      { "texto": "Rusia", "correcta": true },
-      { "texto": "Ucrania", "correcta": false },
-      { "texto": "Francia", "correcta": false }
+      { "texto": "Hidrógeno", "correcta": true },
+      { "texto": "Helio", "correcta": false },
+      { "texto": "Oxígeno", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más pequeño de Europa?",
+    "pregunta": "¿Cuál es la montaña más alta del mundo?",
     "respuestas": [
-      { "texto": "Ciudad del Vaticano", "correcta": true },
-      { "texto": "Mónaco", "correcta": false },
-      { "texto": "San Marino", "correcta": false }
+      { "texto": "Everest", "correcta": true },
+      { "texto": "K2", "correcta": false },
+      { "texto": "Kangchenjunga", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más grande de América?",
+    "pregunta": "¿Quién compuso la Novena Sinfonía?",
     "respuestas": [
-      { "texto": "Canadá", "correcta": true },
-      { "texto": "Estados Unidos", "correcta": false },
-      { "texto": "Brasil", "correcta": false }
+      { "texto": "Ludwig van Beethoven", "correcta": true },
+      { "texto": "Wolfgang Amadeus Mozart", "correcta": false },
+      { "texto": "Johann Sebastian Bach", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más pequeño de América?",
+    "pregunta": "¿Cuál es el idioma más hablado en el mundo?",
     "respuestas": [
-      { "texto": "San Cristóbal y Nieves", "correcta": true },
-      { "texto": "Antigua y Barbuda", "correcta": false },
-      { "texto": "Barbados", "correcta": false }
+      { "texto": "Chino mandarín", "correcta": true },
+      { "texto": "Inglés", "correcta": false },
+      { "texto": "Español", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más grande de Asia?",
+    "pregunta": "¿Qué país ganó el primer Mundial de Fútbol?",
     "respuestas": [
-      { "texto": "Rusia", "correcta": true },
-      { "texto": "China", "correcta": false },
-      { "texto": "India", "correcta": false }
+      { "texto": "Uruguay", "correcta": true },
+      { "texto": "Brasil", "correcta": false },
+      { "texto": "Alemania", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más pequeño de Asia?",
+    "pregunta": "¿Cuál es la capital de Australia?",
     "respuestas": [
-      { "texto": "Maldivas", "correcta": true },
-      { "texto": "Singapur", "correcta": false },
-      { "texto": "Brunéi", "correcta": false }
+      { "texto": "Canberra", "correcta": true },
+      { "texto": "Sídney", "correcta": false },
+      { "texto": "Melbourne", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más grande de África?",
+    "pregunta": "¿Cuál es el libro más vendido en el mundo después de la Biblia?",
     "respuestas": [
-      { "texto": "Argelia", "correcta": true },
-      { "texto": "República Democrática del Congo", "correcta": false },
-      { "texto": "Sudán", "correcta": false }
+      { "texto": "Don Quijote de la Mancha", "correcta": true },
+      { "texto": "El Señor de los Anillos", "correcta": false },
+      { "texto": "Harry Potter y la piedra filosofal", "correcta": false }
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más pequeño de África?",
+    "pregunta": "¿Cuál es el país más frío del mundo?",
     "respuestas": [
-      { "texto": "Seychelles", "correcta": true },
-      { "texto": "Mauricio", "correcta": false },
-      { "texto": "Comoras", "correcta": false }
-    ]
-  },
-  {
-    "pregunta": "¿Cuál es el país más grande de Oceanía?",
-    "respuestas": [
-      { "texto": "Australia", "correcta": true },
-      { "texto": "Papúa Nueva Guinea", "correcta": false },
-      { "texto": "Nueva Zelanda", "correcta": false }
-    ]
-  },
-  {
-    "pregunta": "¿Cuál es el país más pequeño de Oceanía?",
-    "respuestas": [
-      { "texto": "Nauru", "correcta": true },
-      { "texto": "Tuvalu", "correcta": false },
-      { "texto": "Palaos", "correcta": false }
+      { "texto": "Antártida", "correcta": true },
+      { "texto": "Rusia", "correcta": false },
+      { "texto": "Canadá", "correcta": false }
     ]
   }
 ]
