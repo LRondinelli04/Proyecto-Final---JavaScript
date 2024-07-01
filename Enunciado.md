@@ -9,11 +9,11 @@ El juego comienza cuando están los 2 jugadores conectados. Los jugadores eligen
 * El nombre del jugador
 * Color (puede ser elegido una única vez)
 * Cada casilla incluye:
-* Un número
-* Una pregunta en formato texto.
-* Como máximo 3 respuestas, con 1 correcta.
-* Incluir una figura en la pregunta (opcional)
-* Incluir audio en la pregunta (opcional)
-* Incluir una figura en las respuestas (opcional)
-* Incluir audio en la respuesta (opcional)
+    * Un número
+    * Una pregunta en formato texto.
+    * Como máximo 3 respuestas, con 1 correcta.
+    * Incluir una figura en la pregunta (opcional)
+    * Incluir audio en la pregunta (opcional)
+    * Incluir una figura en las respuestas (opcional)
+    * Incluir audio en la respuesta (opcional)
 Toda la lógica del juego deberá resolverse del lado del servidor.
