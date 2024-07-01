@@ -42,11 +42,19 @@ const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
 const preguntasPorCasilla = [];
 
-// Funcion para asignar preguntas a las casillas de manera aleatoria
+// Función para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
+  // Reiniciar el array de preguntas por casilla
+  preguntasPorCasilla.length = 0;
+
   // Copiar las preguntas disponibles para no modificar el arreglo original
   const preguntasDisponibles = [...preguntas];
+
   for (let i = 0; i < MAX_CASILLAS; i++) {
+    if (preguntasDisponibles.length === 0) {
+      break; // En caso de que no haya suficientes preguntas
+    }
+
     // Seleccionar una pregunta aleatoria y agregarla a la lista de preguntas por casilla
     const index = Math.floor(Math.random() * preguntasDisponibles.length);
     preguntasPorCasilla.push(preguntasDisponibles[index]);
