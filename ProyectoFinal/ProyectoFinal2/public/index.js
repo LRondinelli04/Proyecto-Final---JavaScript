@@ -191,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nombreOtroJugador = nombreJugador1;
       }
 
+      mensaje.classList.remove("hidden");
       mensaje.innerText = `No es tu turno. Es el turno de ${nombreOtroJugador}.`;
     }
   });
@@ -204,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
     reiniciarTablero();
     // limpiar mensajes, preguntas y respuestas
     mensaje.innerText = "";
+    mensaje.classList.add("hidden");
     preguntaDiv.innerText = "";
     respuestasDiv.innerHTML = "";
   });

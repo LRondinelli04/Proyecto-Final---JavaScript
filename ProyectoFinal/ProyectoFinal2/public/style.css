@@ -50,6 +50,18 @@ body {
   padding: 10px;
 }
 
+.mensaje {
+  padding: 10px;
+  background: white;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+  display: none;
+}
+
 .imagen {
   object-fit: cover;
   height: 0px;
@@ -130,7 +142,7 @@ body {
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  width: 70%;
+  width: 75%;
 }
 
 .flecha-salida::after {
@@ -161,5 +173,4 @@ body {
 .btn-respuesta:hover {
   scale: 1.05;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-  
 }
