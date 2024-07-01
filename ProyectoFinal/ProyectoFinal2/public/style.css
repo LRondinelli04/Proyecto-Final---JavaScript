@@ -182,3 +182,56 @@ h1 {
   scale: 1.05;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .tablero {
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+  }
+
+  .casilla {
+    width: auto;
+    height: auto;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .btn,
+  .btn-respuesta {
+    width: 80%;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .final {
+    width: 80%;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tablero {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  .casilla {
+    width: auto;
+    height: auto;
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  .btn,
+  .btn-respuesta {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .final {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+}
