@@ -106,8 +106,7 @@ io.on("connection", (socket) => {
   // Evento para lanzar el dado
   socket.on("lanzarDado", () => {
     if (jugadores[turnoActual].id === socket.id) {
-      /* const dado = Math.floor(Math.random() * 6) + 1; */
-      const dado = 1;
+      const dado = Math.floor(Math.random() * 6) + 1;
       let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
 
       if (nuevaPosicion >= MAX_CASILLAS) {
