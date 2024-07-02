@@ -112,6 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
     nombreJugador1 = jugadores[0].nombre;
     nombreJugador2 = jugadores[1].nombre;
 
+    console.log(nombreJugador1);
+    console.log("---------------------------------");
+    console.log(nombreJugador2);
+
     // Mostrar mensaje de inicio de juego y turno del jugador
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
     if (jugadorNumero !== 1) {
