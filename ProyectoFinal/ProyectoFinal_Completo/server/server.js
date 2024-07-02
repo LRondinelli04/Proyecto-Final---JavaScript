@@ -37,6 +37,7 @@ fs.readFile(
 
 // Variables para el juego
 let jugadores = [];
+let colores = [];
 let turnoActual = 0;
 const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
@@ -69,27 +70,50 @@ io.on("connection", (socket) => {
   console.log("Usuario conectado:", socket.id);
 
   // Evento para registrar un jugador
-  socket.on("registrarJugador", (nombreJugador) => {
+  socket.on("registrarJugador", (nombre, color) => {
+    // Cambiar el idioma del color ingresado para que este sea valido en el juego (ingles), en caso de que el color no sea uno de los validos, se asigna un color predeterminado
+    switch (color) {
+      case "rojo":
+        color = "red";
+        break;
+      case "verde":
+        color = "green";
+        break;
+      case "amarillo":
+        color = "yellow";
+        break;
+      case "azul":
+        color = "blue";
+        break;
+      default:
+        // generar un color Random en caso de que el color ingresado no sea valido de tono claro
+        color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+          Math.random() * 256
+        )}, ${Math.floor(Math.random() * 256)})`;
+    }
+
+    // Agregar color a la lista de colores
+    colores.push(color);
+
+    console.log("Nombre desde el cliente: ", nombre);
+
+    // Si el nombre del jugador es "" (vacio), undefined o null, se le asigna nombre "Jugador 1" o "Jugador 2"
+    if (nombre === "" || nombre === undefined || nombre === null) {
+      nombre = `Jugador ${jugadores.length + 1}`;
+    }
+
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
-      // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
-      if (
-        nombreJugador.nombre === "" ||
-        nombreJugador.nombre === null ||
-        nombreJugador.nombre === undefined
-      ) {
-        nombreJugador.nombre =
-          jugadores.length === 0 ? "Jugador 1" : "Jugador 2";
-      }
       // Agregar jugador a la lista de jugadores
-      jugadores.push({ id: socket.id, ...nombreJugador });
+      jugadores.push({ id: socket.id, nombre: nombre });
+
       io.to(socket.id).emit("registroExitoso", jugadores.length);
       // Si hay dos jugadores, iniciar el juego
       if (jugadores.length === 2) {
         // Asignar preguntas a casillas
         asignarPreguntasACasillas();
         // Enviar evento a ambos jugadores para iniciar el juego
-        io.emit("iniciarJuego", { jugadores });
+        io.emit("iniciarJuego", { jugadores, colores });
         // Enviar evento al cliente para actualizar el tablero con los nombres de los jugadores y el turno actual
         io.emit("actualizarTablero", {
           posiciones: posicionesJugadores,

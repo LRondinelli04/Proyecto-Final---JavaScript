@@ -5,11 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let jugadorNumero;
   let turnoActual = 0;
   const posicionesJugadores = [0, 0];
-  const coloresJugadores = ["red", "blue"];
+  let color = "";
   let nombre = "";
   let nombreJugador1 = "";
   let nombreJugador2 = "";
   const cantJugadores = [];
+  const arrayColores = [];
 
   // Constantes de los elementos del DOM
   const btnDado = document.getElementById("btn-dado");
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     posicionesJugadores.forEach((pos, index) => {
       let casilla = document.getElementById(`casilla-${pos}`);
       if (pos < 20) {
-        casilla.style.backgroundColor = coloresJugadores[index];
+        casilla.style.backgroundColor = arrayColores[index];
         casilla.innerText = `J${index + 1}`;
       }
     });
@@ -84,7 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Conexion al servidor
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
-    socket.emit("registrarJugador", { nombre });
+    color = prompt(
+      "Ingrese su color (ROJO, VERDE, AMARILLO, AZUL) :"
+    ).toLowerCase();
+    console.log("color", color);
+    socket.emit("registrarJugador", nombre, color );
   });
 
   // Registro exitoso del jugador
@@ -94,13 +99,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Inicio del juego
-  socket.on("iniciarJuego", ({ jugadores }) => {
+  socket.on("iniciarJuego", ({ jugadores, colores }) => {
     // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
     asignarNombre(jugadores);
 
     // Guardo lo jugadores en un array para mostrar el nombre en el mensaje
     cantJugadores.push(jugadores[0].nombre);
     cantJugadores.push(jugadores[1].nombre);
+
+    // Guardo los colores en un array para mostrar el color en el tablero
+    arrayColores.push(colores[0]);
+    arrayColores.push(colores[1]);
+
+    console.log(colores[0]);
+    console.log("--------------------");
+    console.log(colores[1]);
+    console.log("--------------------");
+    console.log(arrayColores[0]);
+    console.log("--------------------");
+    console.log(arrayColores[1]);
 
     nombreJugador1 = jugadores[1].nombre;
     nombreJugador2 = jugadores[0].nombre;
@@ -172,9 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
     if (turnoGanador == 1) {
-      tituloGanador.style.backgroundColor = coloresJugadores[0];
+      tituloGanador.style.backgroundColor = arrayColores[0];
     } else {
-      tituloGanador.style.backgroundColor = coloresJugadores[1];
+      tituloGanador.style.backgroundColor = arrayColores[1];
     }
 
     // Mostrar mensaje de ganador
