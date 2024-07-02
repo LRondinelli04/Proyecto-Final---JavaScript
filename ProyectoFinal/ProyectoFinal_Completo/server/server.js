@@ -41,7 +41,6 @@ let turnoActual = 0;
 const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
 const preguntasPorCasilla = [];
-const coloresDisponibles = ["rojo", "azul", "amarillo", "verde"];
 
 // Función para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
@@ -71,46 +70,36 @@ io.on("connection", (socket) => {
 
   // Evento para registrar un jugador
   socket.on("registrarJugador", (nombreJugador) => {
-    // Verificar si el color ingresado esta disponible y no ha sido asignado a otro jugador
-    if (coloresDisponibles.includes(nombreJugador.color)) {
-      const colorIndex = coloresDisponibles.indexOf(nombreJugador.color);
-      if (colorIndex > -1) {
-        coloresDisponibles.splice(colorIndex, 1);
+    // Si hay menos de dos jugadores, registrar al jugador
+    if (jugadores.length < 2) {
+      // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
+      if (
+        nombreJugador.nombre === "" ||
+        nombreJugador.nombre === null ||
+        nombreJugador.nombre === undefined
+      ) {
+        nombreJugador.nombre =
+          jugadores.length === 0 ? "Jugador 1" : "Jugador 2";
       }
-      // Si hay menos de dos jugadores, registrar al jugador
-      if (jugadores.length < 2) {
-        // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
-        if (
-          nombreJugador.nombre === "" ||
-          nombreJugador.nombre === null ||
-          nombreJugador.nombre === undefined
-        ) {
-          nombreJugador.nombre =
-            jugadores.length === 0 ? "Jugador 1" : "Jugador 2";
-        }
-        // Agregar jugador a la lista de jugadores
-        jugadores.push({ id: socket.id, ...nombreJugador });
-        io.to(socket.id).emit("registroExitoso", jugadores.length);
-        // Si hay dos jugadores, iniciar el juego
-        if (jugadores.length === 2) {
-          // Asignar preguntas a casillas
-          asignarPreguntasACasillas();
-          // Enviar evento a ambos jugadores para iniciar el juego
-          io.emit("iniciarJuego", { jugadores });
-          // Enviar evento al cliente para actualizar el tablero con los nombres de los jugadores y el turno actual
-          io.emit("actualizarTablero", {
-            posiciones: posicionesJugadores,
-            turno: turnoActual + 1,
-            nombreTurno: jugadores[turnoActual].nombre,
-          });
-        }
-      } else {
-        // Enviar evento al cliente para indicar que el juego está lleno
-        socket.emit("juegoLleno");
+      // Agregar jugador a la lista de jugadores
+      jugadores.push({ id: socket.id, ...nombreJugador });
+      io.to(socket.id).emit("registroExitoso", jugadores.length);
+      // Si hay dos jugadores, iniciar el juego
+      if (jugadores.length === 2) {
+        // Asignar preguntas a casillas
+        asignarPreguntasACasillas();
+        // Enviar evento a ambos jugadores para iniciar el juego
+        io.emit("iniciarJuego", { jugadores });
+        // Enviar evento al cliente para actualizar el tablero con los nombres de los jugadores y el turno actual
+        io.emit("actualizarTablero", {
+          posiciones: posicionesJugadores,
+          turno: turnoActual + 1,
+          nombreTurno: jugadores[turnoActual].nombre,
+        });
       }
     } else {
-      // Enviar evento al cliente para indicar que el color ingresado no está disponible
-      socket.emit("colorNoDisponible");
+      // Enviar evento al cliente para indicar que el juego está lleno
+      socket.emit("juegoLleno");
     }
   });
 

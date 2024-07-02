@@ -4,11 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Variables del juego
   let jugadorNumero;
   let turnoActual = 0;
+  let valorDados = 0;
   const posicionesJugadores = [0, 0];
-
+  const coloresJugadores = ["red", "blue"];
   let nombre = "";
-  let color = "";
-
   let nombreJugador1 = "";
   let nombreJugador2 = "";
   const cantJugadores = [];
@@ -74,9 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar las posiciones de los jugadores en el tablero
     posicionesJugadores.forEach((pos, index) => {
       let casilla = document.getElementById(`casilla-${pos}`);
+      let posActual = pos;
+      let posAnterior = 0;
       if (pos < 20) {
-        casilla.style.backgroundColor = jugadores[index].color;
+        posAnterior = posActual - valorDados + 1;
+        casilla.style.backgroundColor = coloresJugadores[index];
         casilla.innerText = `J${index + 1}`;
+        posActual = pos + 1;
+        console.log(
+          `Posicion anterior del jugador ${
+            index + 1
+          }: ${posAnterior}, Posicion actual del jugador ${
+            index + 1
+          }: ${posActual}`
+        );
       }
     });
   }
@@ -86,10 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Conexion al servidor
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
-    color = prompt(
-      "Ingrese su color (rojo, azul, amarillo, verde):"
-    ).toLowerCase();
-    socket.emit("registrarJugador", { nombre, color });
+    socket.emit("registrarJugador", { nombre });
   });
 
   // Registro exitoso del jugador
@@ -107,12 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
     cantJugadores.push(jugadores[0].nombre);
     cantJugadores.push(jugadores[1].nombre);
 
-    nombreJugador1 = jugadores[0].nombre;
-    nombreJugador2 = jugadores[1].nombre;
-
-    console.log(nombreJugador1);
-    console.log("---------------------------------");
-    console.log(nombreJugador2);
+    nombreJugador1 = jugadores[1].nombre;
+    nombreJugador2 = jugadores[0].nombre;
 
     // Mostrar mensaje de inicio de juego y turno del jugador
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
@@ -128,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ({ jugador, resultado, pregunta, nuevaPosicion }) => {
       if (jugador === jugadorNumero) {
         mensaje.innerText = `Obtuviste un ${resultado}. Responde la pregunta para avanzar.`;
+        valorDados = resultado;
         mostrarPregunta(pregunta, nuevaPosicion);
       } else {
         mensaje.innerText = `El Jugador ${jugador} obtuvo un ${resultado}. Espera tu turno.`;
@@ -180,7 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
     reiniciarTablero();
 
     // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
-    tituloGanador.style.backgroundColor = jugadores[turnoGanador - 1].color;
+    if (turnoGanador == 1) {
+      tituloGanador.style.backgroundColor = coloresJugadores[0];
+    } else {
+      tituloGanador.style.backgroundColor = coloresJugadores[1];
+    }
 
     // Mostrar mensaje de ganador
     tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
