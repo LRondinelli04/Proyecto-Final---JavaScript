@@ -42,6 +42,7 @@ let turnoActual = 0;
 const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
 const preguntasPorCasilla = [];
+let coloresDisponibles = ["red", "green", "yellow", "blue"];
 
 // Función para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
@@ -71,25 +72,31 @@ io.on("connection", (socket) => {
 
   // Evento para registrar un jugador
   socket.on("registrarJugador", (nombre, color) => {
-    // Cambiar el idioma del color ingresado para que este sea valido en el juego (ingles), en caso de que el color no sea uno de los validos, se asigna un color predeterminado
+    // Cambiar el idioma del color ingresado para que este sea valido en el juego (ingles), en caso de que el color no sea uno de los validos, se asigna un color aleatorio de los disponibles
     switch (color) {
       case "rojo":
         color = "red";
+        // Eliminar el color rojo de los colores disponibles
+        coloresDisponibles = coloresDisponibles.filter((c) => c !== "red");
         break;
       case "verde":
         color = "green";
+        coloresDisponibles = coloresDisponibles.filter((c) => c !== "green");
         break;
       case "amarillo":
         color = "yellow";
+        coloresDisponibles = coloresDisponibles.filter((c) => c !== "yellow");
         break;
       case "azul":
         color = "blue";
+        coloresDisponibles = coloresDisponibles.filter((c) => c !== "blue");
         break;
       default:
-        // generar un color Random en caso de que el color ingresado no sea valido de tono claro
-        color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-          Math.random() * 256
-        )}, ${Math.floor(Math.random() * 256)})`;
+        // Asignar un color aleatorio de los colores disponibles
+        color =
+          coloresDisponibles[
+            Math.floor(Math.random() * coloresDisponibles.length)
+          ];
     }
 
     // Agregar color a la lista de colores
