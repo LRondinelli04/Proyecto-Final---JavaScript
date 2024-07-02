@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Variables del juego
   let jugadorNumero;
   let turnoActual = 0;
-  let valorDados = 0;
   const posicionesJugadores = [0, 0];
   const coloresJugadores = ["red", "blue"];
   let nombre = "";
@@ -73,20 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar las posiciones de los jugadores en el tablero
     posicionesJugadores.forEach((pos, index) => {
       let casilla = document.getElementById(`casilla-${pos}`);
-      let posActual = pos;
-      let posAnterior = 0;
       if (pos < 20) {
-        posAnterior = posActual - valorDados + 1;
         casilla.style.backgroundColor = coloresJugadores[index];
         casilla.innerText = `J${index + 1}`;
-        posActual = pos + 1;
-        console.log(
-          `Posicion anterior del jugador ${
-            index + 1
-          }: ${posAnterior}, Posicion actual del jugador ${
-            index + 1
-          }: ${posActual}`
-        );
       }
     });
   }
@@ -131,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ({ jugador, resultado, pregunta, nuevaPosicion }) => {
       if (jugador === jugadorNumero) {
         mensaje.innerText = `Obtuviste un ${resultado}. Responde la pregunta para avanzar.`;
-        valorDados = resultado;
         mostrarPregunta(pregunta, nuevaPosicion);
       } else {
         mensaje.innerText = `El Jugador ${jugador} obtuvo un ${resultado}. Espera tu turno.`;
