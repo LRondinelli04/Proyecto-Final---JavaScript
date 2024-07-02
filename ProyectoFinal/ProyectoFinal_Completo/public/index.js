@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Variables del juego
   let jugadorNumero;
   let turnoActual = 0;
-  let valorDados = 0;
   const posicionesJugadores = [0, 0];
 
   let nombre = "";
@@ -76,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     posicionesJugadores.forEach((pos, index) => {
       let casilla = document.getElementById(`casilla-${pos}`);
       if (pos < 20) {
-        posAnterior = posActual - valorDados + 1;
         casilla.style.backgroundColor = jugadores[index].color;
         casilla.innerText = `J${index + 1}`;
       }
@@ -130,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ({ jugador, resultado, pregunta, nuevaPosicion }) => {
       if (jugador === jugadorNumero) {
         mensaje.innerText = `Obtuviste un ${resultado}. Responde la pregunta para avanzar.`;
-        valorDados = resultado;
         mostrarPregunta(pregunta, nuevaPosicion);
       } else {
         mensaje.innerText = `El Jugador ${jugador} obtuvo un ${resultado}. Espera tu turno.`;
