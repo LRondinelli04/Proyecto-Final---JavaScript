@@ -6,8 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let turnoActual = 0;
   let valorDados = 0;
   const posicionesJugadores = [0, 0];
-  const coloresJugadores = ["red", "blue"];
+
   let nombre = "";
+  let color = "";
+
   let nombreJugador1 = "";
   let nombreJugador2 = "";
   const cantJugadores = [];
@@ -73,20 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar las posiciones de los jugadores en el tablero
     posicionesJugadores.forEach((pos, index) => {
       let casilla = document.getElementById(`casilla-${pos}`);
-      let posActual = pos;
-      let posAnterior = 0;
       if (pos < 20) {
         posAnterior = posActual - valorDados + 1;
-        casilla.style.backgroundColor = coloresJugadores[index];
+        casilla.style.backgroundColor = jugadores[index].color;
         casilla.innerText = `J${index + 1}`;
-        posActual = pos + 1;
-        console.log(
-          `Posicion anterior del jugador ${
-            index + 1
-          }: ${posAnterior}, Posicion actual del jugador ${
-            index + 1
-          }: ${posActual}`
-        );
       }
     });
   }
@@ -96,7 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Conexion al servidor
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
-    socket.emit("registrarJugador", { nombre });
+    color = prompt(
+      "Ingrese su color (rojo, azul, amarillo, verde):"
+    ).toLowerCase();
+    socket.emit("registrarJugador", { nombre, color });
   });
 
   // Registro exitoso del jugador
@@ -184,11 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     reiniciarTablero();
 
     // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
-    if (turnoGanador == 1) {
-      tituloGanador.style.backgroundColor = coloresJugadores[0];
-    } else {
-      tituloGanador.style.backgroundColor = coloresJugadores[1];
-    }
+    tituloGanador.style.backgroundColor = jugadores[turnoGanador - 1].color;
 
     // Mostrar mensaje de ganador
     tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
