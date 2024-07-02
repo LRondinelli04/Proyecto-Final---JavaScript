@@ -109,8 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
     cantJugadores.push(jugadores[0].nombre);
     cantJugadores.push(jugadores[1].nombre);
 
-    nombreJugador1 = jugadores[1].nombre;
-    nombreJugador2 = jugadores[0].nombre;
+    nombreJugador1 = jugadores[0].nombre;
+    nombreJugador2 = jugadores[1].nombre;
 
     // Mostrar mensaje de inicio de juego y turno del jugador
     mensaje.innerText = `El juego ha comenzado. Es el turno de ${nombreJugador1}!`;
