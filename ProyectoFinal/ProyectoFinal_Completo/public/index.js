@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
     color = prompt(
       "Ingrese su color (ROJO, VERDE, AMARILLO, AZUL) :"
     ).toLowerCase();
-    console.log("color", color);
     socket.emit("registrarJugador", nombre, color );
   });
 
@@ -110,14 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Guardo los colores en un array para mostrar el color en el tablero
     arrayColores.push(colores[0]);
     arrayColores.push(colores[1]);
-
-    console.log(colores[0]);
-    console.log("--------------------");
-    console.log(colores[1]);
-    console.log("--------------------");
-    console.log(arrayColores[0]);
-    console.log("--------------------");
-    console.log(arrayColores[1]);
 
     nombreJugador1 = jugadores[1].nombre;
     nombreJugador2 = jugadores[0].nombre;

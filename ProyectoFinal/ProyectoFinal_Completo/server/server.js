@@ -102,8 +102,6 @@ io.on("connection", (socket) => {
     // Agregar color a la lista de colores
     colores.push(color);
 
-    console.log("Nombre desde el cliente: ", nombre);
-
     // Si el nombre del jugador es "" (vacio), undefined o null, se le asigna nombre "Jugador 1" o "Jugador 2"
     if (nombre === "" || nombre === undefined || nombre === null) {
       nombre = `Jugador ${jugadores.length + 1}`;
