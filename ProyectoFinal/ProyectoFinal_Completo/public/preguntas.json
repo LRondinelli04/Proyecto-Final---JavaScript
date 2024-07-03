@@ -8,7 +8,7 @@
     ]
   },
   {
-    "pregunta": "¿Cuál es el río más largo del mundo?",
+    "pregunta": "¿Cuál es el río más caudaloso del mundo?",
     "respuestas": [
       { "texto": "Amazonas", "correcta": true },
       { "texto": "Nilo", "correcta": false },
@@ -152,11 +152,11 @@
     ]
   },
   {
-    "pregunta": "¿Cuál es el país más frío del mundo?",
+    "pregunta": "¿Cuál es el continente más frío del mundo?",
     "respuestas": [
       { "texto": "Antártida", "correcta": true },
-      { "texto": "Rusia", "correcta": false },
-      { "texto": "Canadá", "correcta": false }
+      { "texto": "Asia", "correcta": false },
+      { "texto": "Europa", "correcta": false }
     ]
   }
 ]
