@@ -222,6 +222,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
+  socket.on("reiniciarTablero", () => {
+    //Reinicio el tablero para un nuevo juego
+    reiniciarTablero();
+    // Llamo al evento juegoTerminado
+    socket.emit("juegoTerminado", {
+      turnoGanador: 0,
+      nombreGanador: "",
+    });
+  });
+
   //! EVENTOS DE DOM
 
   // Evento click del botón de "Tirar Dado"

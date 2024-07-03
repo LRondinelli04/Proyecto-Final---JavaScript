@@ -210,6 +210,19 @@ io.on("connection", (socket) => {
     if (jugadores.length < 2) {
       io.emit("esperarJugador");
     }
+    if (jugadores.length === 0) {
+      //Reiniciar el juego
+      colores = [];
+      turnoActual = 0;
+      coloresDisponibles = ["red", "green", "yellow", "blue"];
+      // colocar a los jugadores en la posición inicial
+      posicionesJugadores[0] = 0;
+      posicionesJugadores[1] = 0;
+      // Reiniciar las preguntas
+      asignarPreguntasACasillas();
+      // Enviar evento al cliente para reiniciar el tablero
+      io.emit("reiniciarTablero");
+    }
   });
 });
 
