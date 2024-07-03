@@ -80,6 +80,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Funcion para traducir el color
+  function traducirColor(color) {
+    switch (color) {
+      case "red":
+        color = "Rojo";
+        break;
+      case "green":
+        color = "Verde";
+        break;
+      case "yellow":
+        color = "Amarillo";
+        break;
+      case "blue":
+        color = "Azul";
+        break;
+    }
+    return color;
+  }
+
   //! EVENTOS DE SOCKET
 
   // Conexion al servidor
@@ -88,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     color = prompt(
       "Ingrese su color (ROJO, VERDE, AMARILLO, AZUL) :"
     ).toLowerCase();
-    socket.emit("registrarJugador", nombre, color );
+    socket.emit("registrarJugador", nombre, color);
   });
 
   // Registro exitoso del jugador
@@ -187,6 +206,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mostrar mensaje de ganador
     tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
+  });
+
+  socket.on("colorError", (color) => {
+    let colorJugador = traducirColor(color);
+    alert(
+      `El color que ingreso no es valido, por lo que se le asigno el color: ${colorJugador}`
+    );
+  });
+
+  socket.on("colorRepetido", (color) => {
+    let colorJugador = traducirColor(color);
+    alert(
+      `El color que escribio ya fue asignado, por lo tanto le corresponde el color: ${colorJugador}`
+    );
   });
 
   //! EVENTOS DE DOM

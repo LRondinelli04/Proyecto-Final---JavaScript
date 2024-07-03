@@ -72,31 +72,43 @@ io.on("connection", (socket) => {
 
   // Evento para registrar un jugador
   socket.on("registrarJugador", (nombre, color) => {
-    // Cambiar el idioma del color ingresado para que este sea valido en el juego (ingles), en caso de que el color no sea uno de los validos, se asigna un color aleatorio de los disponibles
+    // Cambiar el idioma del color para que sea compatible con CSS
     switch (color) {
       case "rojo":
         color = "red";
-        // Eliminar el color rojo de los colores disponibles
-        coloresDisponibles = coloresDisponibles.filter((c) => c !== "red");
         break;
       case "verde":
         color = "green";
-        coloresDisponibles = coloresDisponibles.filter((c) => c !== "green");
         break;
       case "amarillo":
         color = "yellow";
-        coloresDisponibles = coloresDisponibles.filter((c) => c !== "yellow");
         break;
       case "azul":
         color = "blue";
-        coloresDisponibles = coloresDisponibles.filter((c) => c !== "blue");
         break;
       default:
-        // Asignar un color aleatorio de los colores disponibles
-        color =
-          coloresDisponibles[
-            Math.floor(Math.random() * coloresDisponibles.length)
-          ];
+        color = "aleatorio";
+    }
+
+    // Si el color es valido, se elimina de la lista de colores disponibles
+    if (coloresDisponibles.includes(color)) {
+      coloresDisponibles = coloresDisponibles.filter((c) => c !== color);
+    } // Si no, si el color es igual a "aleatorio", se selecciona un color aleatorio disponible en la lista y se elimina de la lista de colores disponibles
+    else if (color === "aleatorio") {
+      color =
+        coloresDisponibles[
+          Math.floor(Math.random() * coloresDisponibles.length)
+        ];
+      coloresDisponibles = coloresDisponibles.filter((c) => c !== color);
+      socket.emit("colorError", color);
+    } // Si el color ya esta en uso/no esta disponible en la lista, se selecciona un color aleatorio disponible en la lista y se elimina de la lista de colores disponibles
+    else {
+      color =
+        coloresDisponibles[
+          Math.floor(Math.random() * coloresDisponibles.length)
+        ];
+      coloresDisponibles = coloresDisponibles.filter((c) => c !== color);
+      socket.emit("colorRepetido", color);
     }
 
     // Agregar color a la lista de colores
