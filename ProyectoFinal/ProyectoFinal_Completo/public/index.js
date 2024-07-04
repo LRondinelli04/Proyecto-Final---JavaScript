@@ -71,6 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
+      casilla.style.fontWeight = "700";
+      casilla.style.color = "black";
     }
 
     // Actualizar las posiciones de los jugadores en el tablero
