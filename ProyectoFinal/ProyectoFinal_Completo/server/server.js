@@ -42,7 +42,7 @@ let turnoActual = 0;
 const posicionesJugadores = [0, 0];
 const MAX_CASILLAS = 20;
 const preguntasPorCasilla = [];
-let coloresDisponibles = ["red", "green", "yellow", "blue"];
+let coloresDisponibles = ["red", "green", "brown", "blue"];
 
 // Función para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
@@ -80,8 +80,8 @@ io.on("connection", (socket) => {
       case "verde":
         color = "green";
         break;
-      case "amarillo":
-        color = "yellow";
+      case "marron":
+        color = "brown";
         break;
       case "azul":
         color = "blue";
@@ -166,7 +166,7 @@ io.on("connection", (socket) => {
   });
 
   // Evento para responder una pregunta
-  socket.on("respuesta", ({ jugador, correcta, nuevaPosicion }) => {
+  socket.on("respuesta", ({ jugador, correcta, nuevaPosicion, arrayColores }) => {
     if (jugador === turnoActual + 1) {
       const esCorrecta = correcta;
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
@@ -177,6 +177,7 @@ io.on("connection", (socket) => {
           io.emit("juegoTerminado", {
             turnoGanador: turnoActual + 1,
             nombreGanador: jugadores[turnoActual].nombre,
+            color: arrayColores[turnoActual],
           });
           return;
         }
@@ -214,7 +215,7 @@ io.on("connection", (socket) => {
       //Reiniciar el juego
       colores = [];
       turnoActual = 0;
-      coloresDisponibles = ["red", "green", "yellow", "blue"];
+      coloresDisponibles = ["red", "green", "brown", "blue"];
       // colocar a los jugadores en la posición inicial
       posicionesJugadores[0] = 0;
       posicionesJugadores[1] = 0;

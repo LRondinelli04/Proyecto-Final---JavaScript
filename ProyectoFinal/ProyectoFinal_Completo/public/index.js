@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tablero.appendChild(casilla);
       casilla.style.border = "1px solid black";
       casilla.style.borderRadius = "5px";
+      casilla.style.fontWeight = "700";
     }
   }
 
@@ -40,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
+      casilla.style.fontWeight = "700";
+      casilla.style.color = "black";
     }
   }
 
@@ -75,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
       let casilla = document.getElementById(`casilla-${pos}`);
       if (pos < 20) {
         casilla.style.backgroundColor = arrayColores[index];
+        casilla.style.fontWeight = "bold";
+        casilla.style.color = "white";
         casilla.innerText = `J${index + 1}`;
       }
     });
@@ -89,8 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
       case "green":
         color = "Verde";
         break;
-      case "yellow":
-        color = "Amarillo";
+      case "brown":
+        color = "Marrón";
         break;
       case "blue":
         color = "Azul";
@@ -105,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("connect", () => {
     nombre = prompt("Ingrese su nombre:");
     color = prompt(
-      "Ingrese su color (ROJO, VERDE, AMARILLO, AZUL) :"
+      "Ingrese su color (ROJO, VERDE, MARRÓN, AZUL) :"
     ).toLowerCase();
     socket.emit("registrarJugador", nombre, color);
   });
@@ -205,6 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Mostrar mensaje de ganador
+    tituloGanador.style.color = "white";
     tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
   });
 
