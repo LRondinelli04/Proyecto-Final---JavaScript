@@ -126,7 +126,7 @@ body {
   transform: rotate(2deg);
   border-width: 10px;
   border-style: solid;
-  border-color: #4caf50 transparent transparent transparent; /* Ajusta para que la flecha apunte hacia abajo */
+  border-color: #28a745 transparent transparent transparent; /* Ajusta para que la flecha apunte hacia abajo */
 }
 
 .respuestas{

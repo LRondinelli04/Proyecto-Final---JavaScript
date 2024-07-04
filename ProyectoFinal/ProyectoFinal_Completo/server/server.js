@@ -166,7 +166,7 @@ io.on("connection", (socket) => {
   });
 
   // Evento para responder una pregunta
-  socket.on("respuesta", ({ jugador, correcta, nuevaPosicion, arrayColores }) => {
+  socket.on("respuesta", ({ jugador, correcta, nuevaPosicion }) => {
     if (jugador === turnoActual + 1) {
       const esCorrecta = correcta;
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
@@ -177,7 +177,6 @@ io.on("connection", (socket) => {
           io.emit("juegoTerminado", {
             turnoGanador: turnoActual + 1,
             nombreGanador: jugadores[turnoActual].nombre,
-            color: arrayColores[turnoActual],
           });
           return;
         }
