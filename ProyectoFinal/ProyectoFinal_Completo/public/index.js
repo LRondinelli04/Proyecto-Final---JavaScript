@@ -151,11 +151,14 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on(
     "resultadoDado",
     ({ jugador, resultado, pregunta, nuevaPosicion }) => {
+      let turno = false;
       if (jugador === jugadorNumero) {
+        turno = true;
         mensaje.innerText = `Obtuviste un ${resultado}. Responde la pregunta para avanzar.`;
-        mostrarPregunta(pregunta, nuevaPosicion);
+        mostrarPregunta(pregunta, nuevaPosicion, turno);
       } else {
         mensaje.innerText = `El Jugador ${jugador} obtuvo un ${resultado}. Espera tu turno.`;
+        mostrarPregunta(pregunta, nuevaPosicion, turno);
       }
     }
   );
@@ -281,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Función para mostrar la pregunta y las respuestas
-  function mostrarPregunta(pregunta, nuevaPosicion) {
+  function mostrarPregunta(pregunta, nuevaPosicion, turno) {
     preguntaDiv.innerText = pregunta.pregunta;
     respuestasDiv.innerHTML = ""; // Limpiar respuestas anteriores
 
@@ -303,6 +306,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       respuestasDiv.appendChild(btn);
     });
+
+    // Si es el turno del jugador, habilitar los botones de respuesta, de lo contrario, deshabilitarlos
+    if (turno) {
+      document.querySelectorAll(".btn-respuesta").forEach((btn) => {
+        btn.disabled = false;
+      });
+    } else {
+      document.querySelectorAll(".btn-respuesta").forEach((btn) => {
+        btn.disabled = true;
+        btn.style.backgroundColor = "gray";
+        btn.style.color = "white";
+        btn.style.cursor = "not-allowed";
+      });
+    }
   }
 
   // Función para mezclar un array

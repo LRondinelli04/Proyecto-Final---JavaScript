@@ -156,7 +156,7 @@ io.on("connection", (socket) => {
 
       const pregunta = preguntasPorCasilla[nuevaPosicion];
       // Enviar evento al cliente con el resultado del dado
-      io.to(socket.id).emit("resultadoDado", {
+      io.emit("resultadoDado", {
         jugador: turnoActual + 1,
         resultado: dado,
         pregunta,
