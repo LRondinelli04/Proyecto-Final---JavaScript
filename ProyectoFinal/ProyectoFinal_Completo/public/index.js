@@ -286,6 +286,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Función para mostrar la pregunta y las respuestas
   function mostrarPregunta(pregunta, nuevaPosicion, turno) {
     preguntaDiv.innerText = pregunta.pregunta;
+    preguntaDiv.style.fontWeight = "bold";
+    preguntaDiv.style.borderBottom = "1px solid black";
+    preguntaDiv.style.padding = "5px 10px";
+    preguntaDiv.style.margin = "20px 0";
     respuestasDiv.innerHTML = ""; // Limpiar respuestas anteriores
 
     // Mezclar las respuestas
