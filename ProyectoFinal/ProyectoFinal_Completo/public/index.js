@@ -286,10 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Función para mostrar la pregunta y las respuestas
   function mostrarPregunta(pregunta, nuevaPosicion, turno) {
     preguntaDiv.innerText = pregunta.pregunta;
-    preguntaDiv.style.fontWeight = "bold";
-    preguntaDiv.style.borderBottom = "1px solid black";
-    preguntaDiv.style.padding = "5px 10px";
-    preguntaDiv.style.margin = "20px 0";
+    estilosAPregunta();
     respuestasDiv.innerHTML = ""; // Limpiar respuestas anteriores
 
     // Mezclar las respuestas
@@ -334,6 +331,14 @@ document.addEventListener("DOMContentLoaded", () => {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+  function estilosAPregunta() {
+    preguntaDiv.style.fontWeight = "bold";
+    preguntaDiv.style.fontSize = "20px";
+    preguntaDiv.style.margin = "10px";
+    preguntaDiv.style.textAlign = "center";
+    preguntaDiv.style.textDecoration = "underline";
   }
 
   // Crear el tablero al cargar la página
