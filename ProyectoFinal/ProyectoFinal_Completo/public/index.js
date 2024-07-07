@@ -207,10 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Reinicio el tablero y oculto los botones de lanzar dado y abandonar para evitar que el jugador siga jugando
     btnDado.style.display = "none";
     btnAbandonar.style.display = "none";
-    mensaje.innerText = "";
-    preguntaDiv.innerText = "";
-    respuestasDiv.innerHTML = "";
-    mensaje.classList.add("hidden");
+    limpiarMensajes();
     reiniciarTablero();
 
     // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
@@ -283,10 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // limpiar el tablero
     reiniciarTablero();
     // limpiar mensajes, preguntas y respuestas
-    mensaje.innerText = "";
-    mensaje.classList.add("hidden");
-    preguntaDiv.innerText = "";
-    respuestasDiv.innerHTML = "";
+    limpiarMensajes();
   });
 
   // Función para mostrar la pregunta y las respuestas
@@ -345,6 +339,13 @@ document.addEventListener("DOMContentLoaded", () => {
     preguntaDiv.style.margin = "10px";
     preguntaDiv.style.textAlign = "center";
     preguntaDiv.style.textDecoration = "underline";
+  }
+
+  function limpiarMensajes() {
+    mensaje.innerText = "";
+    mensaje.classList.add("hidden");
+    preguntaDiv.innerText = "";
+    respuestasDiv.innerHTML = "";
   }
 
   // Crear el tablero al cargar la página
