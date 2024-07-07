@@ -184,9 +184,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Evaluar la respuesta del jugador
-  socket.on("respuestaEvaluada", ({ correcta }) => {
+  socket.on("respuestaEvaluada", ({ correcta, posicionOcupada }) => {
     if (correcta) {
-      mensaje.innerText = "Respuesta correcta! Avanzas.";
+      if (posicionOcupada) {
+        mensaje.innerText =
+          "Respuesta correcta! Sin embargo, la casilla está ocupada. Te quedas en tu casilla actual.";
+      } else {
+        mensaje.innerText = "Respuesta correcta! Avanzas.";
+      }
     } else {
       mensaje.innerText =
         "Respuesta incorrecta. Te quedas en tu casilla actual.";
