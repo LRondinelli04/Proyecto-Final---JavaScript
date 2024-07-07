@@ -209,6 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnAbandonar.style.display = "none";
     mensaje.innerText = "";
     preguntaDiv.innerText = "";
+    respuestasDiv.innerHTML = "";
     mensaje.classList.add("hidden");
     reiniciarTablero();
 
