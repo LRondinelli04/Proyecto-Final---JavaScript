@@ -40,7 +40,7 @@ let jugadores = [];
 let colores = [];
 let turnoActual = 0;
 const posicionesJugadores = [0, 0];
-const MAX_CASILLAS = 20;
+const maxCasillas = 20;
 const preguntasPorCasilla = [];
 let coloresDisponibles = ["red", "green", "brown", "blue"];
 
@@ -52,7 +52,7 @@ function asignarPreguntasACasillas() {
   // Copiar las preguntas disponibles para no modificar el arreglo original
   const preguntasDisponibles = [...preguntas];
 
-  for (let i = 0; i < MAX_CASILLAS; i++) {
+  for (let i = 0; i < maxCasillas; i++) {
     if (preguntasDisponibles.length === 0) {
       break; // En caso de que no haya suficientes preguntas
     }
@@ -150,8 +150,8 @@ io.on("connection", (socket) => {
       const dado = Math.floor(Math.random() * 6) + 1;
       let nuevaPosicion = posicionesJugadores[turnoActual] + dado;
 
-      if (nuevaPosicion >= MAX_CASILLAS) {
-        nuevaPosicion = MAX_CASILLAS - 1;
+      if (nuevaPosicion >= maxCasillas) {
+        nuevaPosicion = maxCasillas - 1;
       }
 
       const pregunta = preguntasPorCasilla[nuevaPosicion];
@@ -172,7 +172,7 @@ io.on("connection", (socket) => {
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
         posicionesJugadores[turnoActual] = nuevaPosicion;
 
-        if (posicionesJugadores[turnoActual] >= MAX_CASILLAS - 1) {
+        if (posicionesJugadores[turnoActual] >= maxCasillas - 1) {
           // Enviar evento al cliente para indicar que el juego ha terminado
           io.emit("juegoTerminado", {
             turnoGanador: turnoActual + 1,
