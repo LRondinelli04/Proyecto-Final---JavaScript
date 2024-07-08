@@ -315,10 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } else {
       document.querySelectorAll(".btn-respuesta").forEach((btn) => {
-        btn.disabled = true;
-        btn.style.backgroundColor = "gray";
-        btn.style.color = "white";
-        btn.style.cursor = "not-allowed";
+        btn.style.display = "none";
       });
     }
   }
