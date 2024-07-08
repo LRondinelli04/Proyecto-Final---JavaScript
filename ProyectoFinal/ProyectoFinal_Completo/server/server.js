@@ -182,6 +182,11 @@ io.on("connection", (socket) => {
         }
       }
 
+      let posicionOcupada = false;
+      if (posicionesJugadores.includes(nuevaPosicion)) {
+        posicionOcupada = true;
+      }
+
       turnoActual = (turnoActual + 1) % 2;
       // Enviar evento al cliente para actualizar el tablero con las nuevas posiciones y el turno actual
       io.emit("actualizarTablero", {
@@ -190,7 +195,10 @@ io.on("connection", (socket) => {
         nombreTurno: jugadores[turnoActual].nombre,
       });
       // Enviar evento al cliente con la respuesta evaluada
-      io.to(socket.id).emit("respuestaEvaluada", { correcta: esCorrecta });
+      io.to(socket.id).emit("respuestaEvaluada", {
+        correcta: esCorrecta,
+        posicionOcupada,
+      });
     }
   });
 
