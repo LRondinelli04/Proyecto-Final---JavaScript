@@ -20,7 +20,35 @@
     <script src="index.js" defer></script>
   </head>
   <body class="text-bg-secondary p-3 text-dark">
-    <section class="container">
+    <div id="formularioInicio" class="container my-5">
+      <form id="formJugador" class="mb-5">
+        <div class="mb-3">
+          <label for="nombreJugador" class="form-label">Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombreJugador"
+            name="nombreJugador"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="colorJugador" class="form-label">Color:</label>
+          <input
+            type="color"
+            class="form-control"
+            id="colorJugador"
+            name="colorJugador"
+            required
+          />
+        </div>
+        <div class="button">
+          <button type="submit" class="btn btn-primary">Comenzar Juego</button>
+        </div>
+      </form>
+    </div>
+
+    <section class="container" id="contenidoJuego">
       <header
         class="p-3 mb-5 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3"
       >
@@ -59,7 +87,9 @@
         <div id="respuestas" class="respuestas"></div>
 
         <div class="finJuego">
-          <h2 class="final alert alert-info text-center" id="final">FIN DEL JUEGO</h2>
+          <h2 class="final alert alert-info text-center" id="final">
+            FIN DEL JUEGO
+          </h2>
         </div>
       </div>
     </section>

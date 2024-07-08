@@ -20,6 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const preguntaDiv = document.getElementById("pregunta");
   const respuestasDiv = document.getElementById("respuestas");
   const tituloGanador = document.querySelector("#final");
+  const formularioInicio = document.getElementById("formularioInicio");
+  const formJugador = document.getElementById("formJugador");
+  const nombreJugadorInput = document.getElementById("nombreJugador");
+  const colorJugadorInput = document.getElementById("colorJugador");
+  const contenidoJuego = document.getElementById("contenidoJuego");
+
+  // Ocultar el contenido del juego inicialmente
+  contenidoJuego.style.display = "none";
+
+  //! FUNCIONES
 
   // Funcion para crear el tablero
   function crearTablero() {
@@ -71,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const casilla = document.getElementById(`casilla-${i}`);
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
-      casilla.style.fontWeight = "700";
       casilla.style.color = "black";
     }
 
@@ -80,42 +89,30 @@ document.addEventListener("DOMContentLoaded", () => {
       let casilla = document.getElementById(`casilla-${pos}`);
       if (pos < 20) {
         casilla.style.backgroundColor = arrayColores[index];
-        casilla.style.fontWeight = "bold";
         casilla.style.color = "white";
         casilla.innerText = `J${index + 1}`;
+        casilla.style.textShadow =
+          "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000";
       }
     });
   }
 
-  // Funcion para traducir el color
-  function traducirColor(color) {
-    switch (color) {
-      case "red":
-        color = "Rojo";
-        break;
-      case "green":
-        color = "Verde";
-        break;
-      case "brown":
-        color = "Marrón";
-        break;
-      case "blue":
-        color = "Azul";
-        break;
-    }
-    return color;
+  function estilosAPregunta() {
+    preguntaDiv.style.fontWeight = "bold";
+    preguntaDiv.style.fontSize = "20px";
+    preguntaDiv.style.margin = "10px";
+    preguntaDiv.style.textAlign = "center";
+    preguntaDiv.style.textDecoration = "underline";
+  }
+
+  function limpiarMensajes() {
+    mensaje.innerText = "";
+    mensaje.classList.add("hidden");
+    preguntaDiv.innerText = "";
+    respuestasDiv.innerHTML = "";
   }
 
   //! EVENTOS DE SOCKET
-
-  // Conexion al servidor
-  socket.on("connect", () => {
-    nombre = prompt("Ingrese su nombre:");
-    color = prompt(
-      "Ingrese su color (ROJO, VERDE, MARRÓN, AZUL) :"
-    ).toLowerCase();
-    socket.emit("registrarJugador", nombre, color);
-  });
 
   // Registro exitoso del jugador
   socket.on("registroExitoso", (numero) => {
@@ -175,11 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
     turnoActual = turno - 1;
     actualizarTablero();
 
+    console.log("Turno actual: ", nombreTurno.nombre);
+
     // Mostrar mensaje de turno
     if (jugadorNumero === turno) {
-      mensaje.innerText = `Es tu turno, ${nombreTurno}! Tira el dado.`;
+      mensaje.innerText = `¡Es tu turno, ${nombreTurno.nombre}! Tira el dado.`;
     } else {
-      mensaje.innerText = `Es el turno de ${nombreTurno}. Espera tu turno.`;
+      mensaje.innerText = `Es el turno de ${nombreTurno.nombre}. Espera tu turno.`;
     }
   });
 
@@ -188,9 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (correcta) {
       if (posicionOcupada) {
         mensaje.innerText =
-          "Respuesta correcta! Sin embargo, la casilla está ocupada. Te quedas en tu casilla actual.";
+          "¡Respuesta correcta! Sin embargo, la casilla está ocupada. Te quedas en tu casilla actual.";
       } else {
-        mensaje.innerText = "Respuesta correcta! Avanzas.";
+        mensaje.innerText = "¡Respuesta correcta! Avanzas.";
       }
     } else {
       mensaje.innerText =
@@ -210,23 +209,33 @@ document.addEventListener("DOMContentLoaded", () => {
     limpiarMensajes();
     reiniciarTablero();
 
-    // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
-    if (turnoGanador == 1) {
-      tituloGanador.style.backgroundColor = arrayColores[0];
+    if (turnoGanador === 0 && nombreGanador === "") {
+      tituloGanador.style.backgroundColor = "gray";
+      tituloGanador.style.color = "white";
+      tituloGanador.innerText = "Juego Finalizado.";
+      setTimeout(() => {
+        alert(
+          "El juego ha finalizado debido a que uno de los jugadores se ha desconectado."
+        );
+        alert("Cierre la página para volver a jugar.");
+      }, 500);
     } else {
-      tituloGanador.style.backgroundColor = arrayColores[1];
+      // Cambiar el color de fondo del mensaje de ganador según el jugador ganador
+      if (turnoGanador == 1) {
+        tituloGanador.style.backgroundColor = arrayColores[0];
+      } else {
+        tituloGanador.style.backgroundColor = arrayColores[1];
+      }
+
+      // Mostrar mensaje de ganador
+      tituloGanador.style.color = "white";
+      tituloGanador.style.textShadow =
+        "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000";
+      tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
     }
 
-    // Mostrar mensaje de ganador
-    tituloGanador.style.color = "white";
-    tituloGanador.innerText = `${nombreGanador} ha ganado el juego!`;
-  });
-
-  socket.on("colorError", (color) => {
-    let colorJugador = traducirColor(color);
-    alert(
-      `El color que ingreso no es valido, por lo que se le asigno el color: ${colorJugador}`
-    );
+    // cerrar la conexión con el servidor
+    socket.close();
   });
 
   socket.on("colorRepetido", (color) => {
@@ -247,6 +256,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   //! EVENTOS DE DOM
+
+  // Evento submit del formulario de inicio
+  formJugador.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevenir el envío estándar del formulario
+
+    // Asignar los valores de nombre y color a partir de los inputs del formulario
+    nombre = nombreJugadorInput.value;
+    color = colorJugadorInput.value;
+
+    // Ocultar el formulario y mostrar el contenido del juego
+    formularioInicio.style.display = "none";
+    contenidoJuego.style.display = "block";
+
+    // Emitir el evento de registro del jugador
+    socket.emit("registrarJugador", nombre, color);
+  });
 
   // Evento click del botón de "Tirar Dado"
   btnDado.addEventListener("click", () => {
@@ -328,21 +353,6 @@ document.addEventListener("DOMContentLoaded", () => {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-  }
-
-  function estilosAPregunta() {
-    preguntaDiv.style.fontWeight = "bold";
-    preguntaDiv.style.fontSize = "20px";
-    preguntaDiv.style.margin = "10px";
-    preguntaDiv.style.textAlign = "center";
-    preguntaDiv.style.textDecoration = "underline";
-  }
-
-  function limpiarMensajes() {
-    mensaje.innerText = "";
-    mensaje.classList.add("hidden");
-    preguntaDiv.innerText = "";
-    respuestasDiv.innerHTML = "";
   }
 
   // Crear el tablero al cargar la página

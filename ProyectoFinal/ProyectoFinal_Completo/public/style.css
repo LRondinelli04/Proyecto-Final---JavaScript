@@ -38,6 +38,47 @@ body {
   padding: 10px;
 }
 
+#formularioInicio {
+  background: #f2f2f2; /* Fondo claro para el formulario */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+#formJugador .form-label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333; /* Texto oscuro para las etiquetas */
+}
+
+#formJugador .form-control {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc; /* Borde sutil */
+  border-radius: 4px; /* Bordes redondeados para los inputs */
+  width: 100%; /* Aprovechar el ancho del contenedor */
+}
+
+#formJugador .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#formJugador button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff; /* Fondo azul para el botón */
+  color: white; /* Texto blanco para el botón */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; /* Cursor de mano al pasar por encima */
+}
+
+#formJugador button:hover {
+  background-color: #0056b3; /* Oscurecer el botón al pasar el mouse */
+}
+
 .categoria {
   opacity: 0.3;
   text-align: left;
@@ -100,11 +141,12 @@ body {
   width: 100%;
 }
 
-.finJuego{
+.finJuego {
   margin-top: 20px;
 }
 
-.finJuego, .final{
+.finJuego,
+.final {
   width: 100%;
 }
 
@@ -133,7 +175,7 @@ body {
   border-color: #28a745 transparent transparent transparent; /* Ajusta para que la flecha apunte hacia abajo */
 }
 
-.respuestas{
+.respuestas {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -141,11 +183,13 @@ body {
   width: 100%;
 }
 
-#btn-dado, #btn-abandonar{
+#btn-dado,
+#btn-abandonar {
   transition: all 0.3s ease-in-out;
 }
 
-#btn-dado:hover, #btn-abandonar:hover{
+#btn-dado:hover,
+#btn-abandonar:hover {
   scale: 1.05;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }

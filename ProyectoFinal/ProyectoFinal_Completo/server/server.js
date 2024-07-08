@@ -42,7 +42,6 @@ let turnoActual = 0;
 const posicionesJugadores = [0, 0];
 const maxCasillas = 20;
 const preguntasPorCasilla = [];
-let coloresDisponibles = ["red", "green", "brown", "blue"];
 
 // Función para asignar preguntas a las casillas de manera aleatoria
 function asignarPreguntasACasillas() {
@@ -72,45 +71,6 @@ io.on("connection", (socket) => {
 
   // Evento para registrar un jugador
   socket.on("registrarJugador", (nombre, color) => {
-    // Cambiar el idioma del color para que sea compatible con CSS
-    switch (color) {
-      case "rojo":
-        color = "red";
-        break;
-      case "verde":
-        color = "green";
-        break;
-      case "marron":
-        color = "brown";
-        break;
-      case "azul":
-        color = "blue";
-        break;
-      default:
-        color = "aleatorio";
-    }
-
-    // Si el color es valido, se elimina de la lista de colores disponibles
-    if (coloresDisponibles.includes(color)) {
-      coloresDisponibles = coloresDisponibles.filter((c) => c !== color);
-    } // Si no, si el color es igual a "aleatorio", se selecciona un color aleatorio disponible en la lista y se elimina de la lista de colores disponibles
-    else if (color === "aleatorio") {
-      color =
-        coloresDisponibles[
-          Math.floor(Math.random() * coloresDisponibles.length)
-        ];
-      coloresDisponibles = coloresDisponibles.filter((c) => c !== color);
-      socket.emit("colorError", color);
-    } // Si el color ya esta en uso/no esta disponible en la lista, se selecciona un color aleatorio disponible en la lista y se elimina de la lista de colores disponibles
-    else {
-      color =
-        coloresDisponibles[
-          Math.floor(Math.random() * coloresDisponibles.length)
-        ];
-      coloresDisponibles = coloresDisponibles.filter((c) => c !== color);
-      socket.emit("colorRepetido", color);
-    }
-
     // Agregar color a la lista de colores
     colores.push(color);
 
@@ -135,7 +95,7 @@ io.on("connection", (socket) => {
         io.emit("actualizarTablero", {
           posiciones: posicionesJugadores,
           turno: turnoActual + 1,
-          nombreTurno: jugadores[turnoActual].nombre,
+          nombreTurno: jugadores[turnoActual],
         });
       }
     } else {
@@ -167,8 +127,15 @@ io.on("connection", (socket) => {
 
   // Evento para responder una pregunta
   socket.on("respuesta", ({ jugador, correcta, nuevaPosicion }) => {
+    let posicionOcupada = false;
+
     if (jugador === turnoActual + 1) {
       const esCorrecta = correcta;
+      // Verificar si la casilla a la que se quiere mover está ocupada
+      if (posicionesJugadores.includes(nuevaPosicion)) {
+        posicionOcupada = true;
+      }
+
       if (esCorrecta && !posicionesJugadores.includes(nuevaPosicion)) {
         posicionesJugadores[turnoActual] = nuevaPosicion;
 
@@ -182,22 +149,17 @@ io.on("connection", (socket) => {
         }
       }
 
-      let posicionOcupada = false;
-      if (posicionesJugadores.includes(nuevaPosicion)) {
-        posicionOcupada = true;
-      }
-
       turnoActual = (turnoActual + 1) % 2;
       // Enviar evento al cliente para actualizar el tablero con las nuevas posiciones y el turno actual
       io.emit("actualizarTablero", {
         posiciones: posicionesJugadores,
         turno: turnoActual + 1,
-        nombreTurno: jugadores[turnoActual].nombre,
+        nombreTurno: jugadores[turnoActual],
       });
       // Enviar evento al cliente con la respuesta evaluada
       io.to(socket.id).emit("respuestaEvaluada", {
         correcta: esCorrecta,
-        posicionOcupada,
+        posicionOcupada: posicionOcupada,
       });
     }
   });
@@ -215,7 +177,13 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Usuario desconectado:", socket.id);
     jugadores = jugadores.filter((j) => j.id !== socket.id);
-    if (jugadores.length < 2) {
+
+    if (jugadores.length == 0 || jugadores.length == 1) {
+      io.emit("juegoTerminado", { turnoGanador: 0, nombreGanador: "" });
+      reiniciarVariables();
+    }
+
+    /*  if (jugadores.length < 2) {
       io.emit("esperarJugador");
     }
     if (jugadores.length === 0) {
@@ -230,9 +198,19 @@ io.on("connection", (socket) => {
       asignarPreguntasACasillas();
       // Enviar evento al cliente para reiniciar el tablero
       io.emit("reiniciarTablero");
-    }
+    } */
   });
 });
+
+function reiniciarVariables() {
+  colores = [];
+  turnoActual = 0;
+  coloresDisponibles = ["red", "green", "brown", "blue"];
+  posicionesJugadores[0] = 0;
+  posicionesJugadores[1] = 0;
+  asignarPreguntasACasillas();
+  io.emit("reiniciarTablero");
+}
 
 server.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto: ${PORT}`);
