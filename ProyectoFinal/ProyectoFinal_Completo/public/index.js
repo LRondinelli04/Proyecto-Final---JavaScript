@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       casilla.style.backgroundColor = "";
       casilla.innerText = i + 1;
       casilla.style.color = "black";
+      casilla.style.textShadow = "none";
     }
 
     // Actualizar las posiciones de los jugadores en el tablero
