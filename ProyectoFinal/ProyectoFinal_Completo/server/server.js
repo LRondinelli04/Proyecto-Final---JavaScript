@@ -200,7 +200,7 @@ io.on("connection", (socket) => {
 function reiniciarVariables() {
   colores = [];
   turnoActual = 0;
-  coloresDisponibles = ["red", "green", "brown", "blue"];
+  /* coloresDisponibles = ["red", "green", "brown", "blue"]; */
   posicionesJugadores[0] = 0;
   posicionesJugadores[1] = 0;
   asignarPreguntasACasillas();
