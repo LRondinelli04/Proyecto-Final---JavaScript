@@ -74,11 +74,6 @@ io.on("connection", (socket) => {
     // Agregar color a la lista de colores
     colores.push(color);
 
-    // Si el nombre del jugador es "" (vacio), undefined o null, se le asigna nombre "Jugador 1" o "Jugador 2"
-    if (nombre === "" || nombre === undefined || nombre === null) {
-      nombre = `Jugador ${jugadores.length + 1}`;
-    }
-
     // Si hay menos de dos jugadores, registrar al jugador
     if (jugadores.length < 2) {
       // Agregar jugador a la lista de jugadores

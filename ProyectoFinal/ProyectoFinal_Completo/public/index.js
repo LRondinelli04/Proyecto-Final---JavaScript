@@ -53,24 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       casilla.innerText = i + 1;
       casilla.style.fontWeight = "700";
       casilla.style.color = "black";
-    }
-  }
-
-  // Funcion para asignar nombre a los jugadores en caso de que sea vacio
-  function asignarNombre(jugadores) {
-    if (
-      jugadores[0].nombre === "" ||
-      jugadores[0].nombre === null ||
-      jugadores[0].nombre === undefined
-    ) {
-      jugadores[0].nombre = "Jugador 1";
-    }
-    if (
-      jugadores[1].nombre === "" ||
-      jugadores[1].nombre === null ||
-      jugadores[1].nombre === undefined
-    ) {
-      jugadores[1].nombre = "Jugador 2";
+      casilla.style.textShadow = "none";
     }
   }
 
@@ -123,9 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Inicio del juego
   socket.on("iniciarJuego", ({ jugadores, colores }) => {
-    // Si el nombre del jugador es "" (vacio) se le asigna nombre "Jugador 1" o "Jugador 2"
-    asignarNombre(jugadores);
-
     // Guardo lo jugadores en un array para mostrar el nombre en el mensaje
     cantJugadores.push(jugadores[0].nombre);
     cantJugadores.push(jugadores[1].nombre);
