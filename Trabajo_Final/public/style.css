@@ -1,0 +1,272 @@
+* {
+  box-sizing: border-box;
+  transition: all 0.3s;
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  text-align: center;
+  font-family: calibri;
+  font-size: 120%;
+  padding: 15px;
+}
+
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.encabezado {
+  position: relative;
+  background: white;
+  min-width: 300px;
+  width: 70%;
+  max-width: 600px;
+  padding: 10px;
+}
+
+#formularioInicio {
+  background: #f2f2f2; /* Fondo claro para el formulario */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+#formJugador .form-label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333; /* Texto oscuro para las etiquetas */
+}
+
+#formJugador .form-control {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc; /* Borde sutil */
+  border-radius: 4px; /* Bordes redondeados para los inputs */
+  width: 100%;
+}
+
+#formJugador .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#formJugador button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff; /* Fondo azul para el botón */
+  color: white; /* Texto blanco para el botón */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; /* Cursor de mano al pasar por encima */
+}
+
+#formJugador button:hover {
+  background-color: #0056b3; /* Oscurecer el botón al pasar el mouse */
+}
+
+.categoria {
+  opacity: 0.3;
+  text-align: left;
+}
+
+.controles {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.pregunta {
+  padding: 10px;
+}
+
+.mensaje {
+  padding: 10px;
+  background: white;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+  display: none;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.tablero-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.casilla {
+  width: 50px;
+  height: 50px;
+  background: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tirar-dado {
+  margin-top: 20px;
+}
+
+#botones {
+  margin-top: 20px;
+  width: 100%;
+}
+
+#botones button {
+  width: 100%;
+}
+
+.finJuego {
+  margin-top: 20px;
+}
+
+.finJuego,
+.final {
+  width: 100%;
+}
+
+.flecha-salida {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: black;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 75%;
+}
+
+.flecha-salida::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; /* Mueve la flecha hacia abajo fuera del elemento */
+  left: 0; /* Posiciona la flecha en la esquina izquierda */
+  /* rotar sobre el eje x */
+  transform: rotate(2deg);
+  border-width: 10px;
+  border-style: solid;
+  border-color: #28a745 transparent transparent transparent; /* Ajusta para que la flecha apunte hacia abajo */
+}
+
+.respuestas {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#btn-dado,
+#btn-abandonar {
+  transition: all 0.3s ease-in-out;
+}
+
+#btn-dado:hover,
+#btn-abandonar:hover {
+  scale: 1.05;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-respuesta {
+  background: white;
+  width: 60%;
+  max-width: 550px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: 700;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-respuesta:hover {
+  scale: 1.05;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tablero {
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+  }
+
+  .casilla {
+    width: auto;
+    height: auto;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .btn,
+  .btn-respuesta {
+    width: 80%;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .final {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tablero {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  .casilla {
+    width: auto;
+    height: auto;
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  .btn,
+  .btn-respuesta {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .final {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+}
