@@ -10,7 +10,7 @@ Este proyecto se basa en una aplicacion web de Preguntas y Respuestas con una co
 - Aca se guardaran las opciones de proyectos incluyendo el Proyecto Final a presentar para el Seminario de Lenguajes - JavaScript
 - Se incluiran ejemplos generales con sus proyectos internos con agregados y funcionalidades e instalaciones de Express
 
-## ENUNCIADO DEL PROYECTO
+## ENUNCIADO DEL PROYECTO FINAL
 
 ### Juego de preguntas y respuestas
 
