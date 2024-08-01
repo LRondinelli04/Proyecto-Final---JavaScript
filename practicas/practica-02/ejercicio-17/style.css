@@ -1,0 +1,35 @@
+h1 {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#boton {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#boton button {
+  border: none;
+  background-color: #1b1b1b;
+  border-radius: 5px;
+  width: 100px;
+  height: auto;
+  color: #ffffff;
+  padding: 8px;
+}
+
+#boton:hover button {
+  background-color: rgb(165, 165, 165);
+  color: black;
+  transition: 0.4s;
+}
+
+#imagenes {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
