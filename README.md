@@ -25,4 +25,4 @@ El proyecto final se basa en una aplicación web de Preguntas y Respuestas, dise
 ## Estructura del Repositorio
 
 - `practicas/`: Carpeta que contiene los ejercicios y prácticas realizadas durante el seminario.
-- `proyecto-final/`: Carpeta dedicada al desarrollo del proyecto final, incluyendo el código fuente y los archivos relacionados.
+- `Trabajo_Final/`: Carpeta dedicada al desarrollo del proyecto final, incluyendo el código fuente y los archivos relacionados.
